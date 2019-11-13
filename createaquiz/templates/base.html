@@ -1,0 +1,61 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+    {% block title %}
+      Create A Quiz
+    {% endblock title %}
+  </title>
+  <link rel="stylesheet" type="text/css" href="{% static 'site/normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'site/skeleton.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'site/style.css' %}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <div class="container">
+    <header class="row">
+      <div class="offset-by-one ten columns">
+        <h1 class="logo"><a href="{% url 'quiz_list' %}">Create A Quiz</a></h1>
+      </div>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="{% url 'quiz_list' %}">Quizzes</a></li>
+        <li><a href="{% url 'quiz_tag_list' %}">Tags</a></li>
+      </ul>
+    </nav>
+
+    {% if messages %}
+      <div class="row">
+        <div class="twelve columns">
+          <ul class="messages">
+            {% for message in messages %}
+              {% if message.tags %}
+                <li class="{{ message.tags }}">
+              {% else %}
+                <li>
+              {% endif %}
+              {{ message }}</li>
+            {% endfor %}
+      </ul></div></div>
+    {% endif %}
+
+    <main>
+      {% block content %}
+        This is default content!
+      {% endblock content %}
+    </main>
+  </div>
+  <footer>
+    <p>
+      &copy; 2019
+      <a href="https://ranajayontheroad.com">Ranajay Das</a>
+    </p>
+  </footer>
+</body>
+</html>

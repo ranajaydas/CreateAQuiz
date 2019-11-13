@@ -1,0 +1,38 @@
+{% extends parent_template|default:'quiz/base_quiz.html' %}
+
+{% block title %}
+  {{ block.super }} - {{ quiz.name }}
+{% endblock title %}
+
+{% block content %}
+<article>
+  <div class="row">
+    <div class="offset-by-two eight columns">
+      <h2>{{ quiz.name }}</h2>
+      <ul class="inline">
+          <li><a href="{{ quiz.get_update_url }}" class="button">Edit Quiz</a></li>
+          <li><a href="{{ quiz.get_delete_url }}" class="button">Delete Quiz</a></li>
+      </ul>
+      <p>
+        {{ quiz.description|linebreaks }}
+      </p>
+      {% if quiz.question_set.all %}
+        <ol>
+          {% for question in quiz.question_set.all %}
+            <li>{{ question.question_text }}</li>
+          {% endfor %}
+        </ol>
+      {% endif %}
+
+      {% if quiz.tags.all %}
+        <ul class="inline">
+          {% for tag in quiz.tags.all %}
+            <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+    </div>
+  </div> <!-- row -->
+</article>
+{% endblock content %}

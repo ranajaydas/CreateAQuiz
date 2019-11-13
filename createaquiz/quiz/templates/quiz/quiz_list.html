@@ -1,0 +1,30 @@
+{% extends parent_template|default:'quiz/base_quiz.html' %}
+
+{% block title %}
+  {{ block.super }} - Quizzes
+{% endblock title %}
+
+{% block create_button %}
+    <a href="{% url 'quiz_create' %}" class="button button-primary">Create New Quiz</a>
+{% endblock %}
+
+{% block org_content %}
+  <h2>Quiz List</h2>
+  <div class="mobile">
+    <a href="{% url 'quiz_create' %}" class="button button-primary">Create New Quiz</a>
+  </div>
+
+  <ul>
+    {% for quiz in quiz_list %}
+      <li>
+        <a href="{{ quiz.get_absolute_url }}">{{ quiz.name }}</a>
+        <ul class="inline">
+          <li><a href="{{ quiz.get_update_url }}" class="button">Edit Quiz</a></li>
+          <li><a href="{{ quiz.get_delete_url }}" class="button">Delete Quiz</a></li>
+        </ul>
+      </li>
+    {% empty %}
+      <li><em>There are currently no Quizzes available.</em></li>
+    {% endfor %}
+  </ul>
+{% endblock org_content %}

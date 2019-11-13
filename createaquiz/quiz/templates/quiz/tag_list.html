@@ -1,0 +1,29 @@
+{% extends parent_template|default:'quiz/base_quiz.html' %}
+
+{% block title %}
+  {{ block.super }} - Tag List
+{% endblock title %}
+
+{% block create_button %}
+    <a href="{% url 'quiz_tag_create' %}" class="button button-primary">Create New Tag</a>
+{% endblock %}
+
+{% block org_content %}
+  <h2>Tag List</h2>
+  <div class="mobile">
+    <a href="{% url 'quiz_tag_create' %}" class="button button-primary">Create New Tag</a>
+  </div>
+  <ul>
+    {% for tag in tag_list %}
+      <li>
+        <a href="{{ tag.get_absolute_url }}">{{ tag.name|title }}</a>
+        <ul class="inline">
+          <li><a href="{{ tag.get_update_url }}" class="button">Edit Tag</a></li>
+          <li><a href="{{ tag.get_delete_url }}" class="button">Delete Tag</a></li>
+        </ul>
+      </li>
+    {% empty %}
+      <li><em>There are currently no Tags available.</em></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
