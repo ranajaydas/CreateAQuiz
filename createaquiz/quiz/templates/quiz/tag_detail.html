@@ -5,12 +5,14 @@
 {% endblock title %}
 
 {% block content %}
-  <h2>Tag Name: {{ tag.name|title }}</h2>
-    <ul class="inline">
-      <li><a href="{{ tag.get_update_url }}" class="button">Edit Tag</a></li>
-      <li><a href="{{ tag.get_delete_url }}" class="button">Delete Tag</a></li>
-    </ul>
+  <h2>{{ tag.name|title }}</h2>
+    {% if perms.quiz.change_tag or perms.quiz.delete_tag %}
+      <ul class="inline">
+        <li><a href="{{ tag.get_update_url }}" class="button">Edit Tag</a></li>
+        <li><a href="{{ tag.get_delete_url }}" class="button">Delete Tag</a></li>
+      </ul>
     <br>
+    {% endif %}
   {% if tag.quiz_set.all %}
     <section>
       <h3>Quizzes matching this tag:</h3>

@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(pattern_name='quiz_list')),
     path('quiz/', include('quiz.urls')),
+    path('user/', include('user.urls')),
 ]

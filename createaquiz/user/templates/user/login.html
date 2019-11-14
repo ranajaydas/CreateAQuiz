@@ -1,0 +1,20 @@
+{% extends parent_template|default:'user/base_user.html' %}
+
+{% block title %}
+{{ block.super }} - Login
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="offset-by-two five columns">
+      <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if next %}
+          <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+        <button type="submit">{{ login_button|default:'Log in' }}</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
