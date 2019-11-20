@@ -1,31 +1,23 @@
 {% extends parent_template|default:'quiz/base_quiz.html' %}
 
 {% block title %}
-  {{ block.super }} - Tag List
+    {{ block.super }} - Tag List
 {% endblock title %}
 
-{% block create_button %}
-    <a href="{% url 'quiz_tag_create' %}" class="button button-primary">Create New Tag</a>
-{% endblock %}
 
-{% block org_content %}
-  <h2>Tag List</h2>
-  <div class="mobile">
-    <a href="{% url 'quiz_tag_create' %}" class="button button-primary">Create New Tag</a>
-  </div>
-  <ul>
-    {% for tag in tag_list %}
-      <li>
-        <a href="{{ tag.get_absolute_url }}">{{ tag.name|title }}</a>
-        {% if perms.quiz.change_tag or perms.quiz.delete_tag %}
-          <ul class="inline">
-            <li><a href="{{ tag.get_update_url }}" class="button">Edit Tag</a></li>
-            <li><a href="{{ tag.get_delete_url }}" class="button">Delete Tag</a></li>
-          </ul>
-        {% endif %}
-      </li>
-    {% empty %}
-      <li><em>There are currently no Tags available.</em></li>
-    {% endfor %}
-  </ul>
-{% endblock %}
+{% block sub_content %}
+    <article class="media content-section">
+        <div class="media-body">
+            <h2>Tags</h2>
+            <div class="list-group">
+                    {% for object in object_list %}
+                        <a href="{{ object.get_absolute_url }}" class="list-group-item list-group-item-action">
+                            {{ object.name }}
+                        </a>
+                    {% empty %}
+                        <li><em>There are currently no Tags available.</em></li>
+                    {% endfor %}
+            </div>
+        </div>
+    </article>
+{% endblock sub_content %}

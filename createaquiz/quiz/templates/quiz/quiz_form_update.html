@@ -1,17 +1,10 @@
 {% extends parent_template|default:'quiz/base_quiz.html' %}
+{% load display_form %}
 
 {% block title %}
     {{ block.super }} - Update Quiz
-{% endblock %}
+{% endblock title %}
 
 {% block content %}
-  <div class="row">
-    <div class="offset-by-two eight columns">
-      <form action="{{ quiz.get_update_url }}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="button-primary">Update Quiz</button>
-      </form>
-    </div>
-  </div>
-{% endblock %}
+    {% form quiz_update 'Update Quiz' %}
+{% endblock content %}

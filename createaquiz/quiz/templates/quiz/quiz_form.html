@@ -1,17 +1,10 @@
 {% extends parent_template|default:'quiz/base_quiz.html' %}
+{% load display_form %}
 
 {% block title %}
-  {{ block.super }} - Create Quiz
+    {{ block.super }} - Create Quiz
 {% endblock title %}
 
 {% block content %}
-  <div class="row">
-    <div class="offset-by-two eight columns">
-      <form action="{% url 'quiz_create' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="button-primary">Create Quiz</button>
-      </form>
-    </div>
-  </div>
+    {% form quiz_create 'Create Quiz' %}
 {% endblock content %}

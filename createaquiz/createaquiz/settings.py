@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'quiz',
     'user',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,14 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = 'quiz_list'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+# Change default Crispy template from Bootstrap 2 to Bootstrap 4
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Variables for Password Reset Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
