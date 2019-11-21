@@ -1,3 +1,18 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
+
+
+class UserIsAuthorMixin(UserPassesTestMixin):
+    def form_valid(self, form):
+        """Valid if the user is the author."""
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        """Passes if the user is the author."""
+        quiz = self.get_object()
+        return self.request.user == quiz.author
+
+
 class PageLinksMixin:
     page_kwarg = 'page'
 

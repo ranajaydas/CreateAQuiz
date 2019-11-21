@@ -1,12 +1,12 @@
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, DeleteView, ListView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
-from .models import Tag, Quiz
-from .forms import TagForm, QuizForm
-from .utils import PageLinksMixin
+from .models import Tag, Quiz, Question
+from .forms import TagForm, QuizForm, QuestionForm
+from .utils import PageLinksMixin, UserIsAuthorMixin
 
 
 class TagList(PageLinksMixin, ListView):
@@ -64,14 +64,14 @@ class QuizCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
 
-class QuizUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class QuizUpdate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, UpdateView):
     form_class = QuizForm
     model = Quiz
     template_name_suffix = '_form_update'
     success_message = 'Quiz updated.'
 
 
-class QuizDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class QuizDelete(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, DeleteView):
     model = Quiz
     success_url = reverse_lazy('quiz_list')
     success_message = 'Quiz deleted.'
@@ -80,3 +80,42 @@ class QuizDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         """Shows success_message upon deletion."""
         messages.warning(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
+
+
+class QuestionDetail(DetailView):
+    model = Question
+
+
+class QuestionCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    form_class = QuestionForm
+    model = Question
+    success_url = 'quiz_detail'
+
+    def form_valid(self, form):
+        form.instance.quiz.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        """Passes if the user is the author."""
+        question = self.get_object()
+        return self.request.user == question.quiz.author
+
+
+class QuestionUpdate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, UpdateView):
+    form_class = QuestionForm
+    model = Question
+    template_name_suffix = '_form_update'
+    success_message = 'Question updated.'
+
+
+class QuestionDelete(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, DeleteView):
+    model = Question
+    success_url = reverse_lazy('quiz_list')
+    success_message = 'Question deleted.'
+
+    def delete(self, request, *args, **kwargs):
+        """Shows success_message upon deletion."""
+        messages.warning(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)
+
+

@@ -1,3 +1,4 @@
+from random import shuffle
 from django.db import models
 from django.shortcuts import reverse
 from django.contrib.auth.models import User
@@ -54,10 +55,29 @@ class Quiz(models.Model):
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     correct_answer = models.CharField(max_length=100)
-    incorrect_answer1 = models.CharField(max_length=100)
-    incorrect_answer2 = models.CharField(max_length=100)
-    incorrect_answer3 = models.CharField(max_length=100)
+    incorrect_answer_1 = models.CharField(max_length=100)
+    incorrect_answer_2 = models.CharField(max_length=100)
+    incorrect_answer_3 = models.CharField(max_length=100)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.question_text
+
+    def get_absolute_url(self):
+        return reverse('quiz_question_detail')
+
+    def get_update_url(self):
+        return reverse('quiz_question_update', kwargs={'slug': self.quiz.slug, 'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('quiz_question_delete', kwargs={'slug': self.quiz.slug, 'pk': self.pk})
+
+    def get_random_options(self):
+        option_list = [
+            self.correct_answer,
+            self.incorrect_answer_1,
+            self.incorrect_answer_2,
+            self.incorrect_answer_3,
+        ]
+        shuffle(option_list)
+        return option_list

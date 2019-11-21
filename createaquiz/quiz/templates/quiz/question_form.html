@@ -1,0 +1,10 @@
+{% extends parent_template|default:'quiz/base_quiz.html' %}
+{% load display_form %}
+
+{% block title %}
+    {{ block.super }} - Create New Question
+{% endblock title %}
+
+{% block content %}
+    {% form question_create 'Create Question' %}
+{% endblock content %}
