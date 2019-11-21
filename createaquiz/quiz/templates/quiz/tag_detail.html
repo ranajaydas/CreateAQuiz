@@ -7,12 +7,20 @@
 {% block content %}
     <article class="media content-section">
         <div class="media-body">
+
             <div class="article-metadata">
                 <div>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ object.get_update_url }}">Update</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ object.get_delete_url }}">Delete</a>
+                    <a href="{{ object.get_parent_url }}">Tags ></a>
+                    <a href="">{{ object.name }}</a><br>
+                    {% if perms.quiz.change_tag %}
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ object.get_update_url }}">Update</a>
+                    {% endif %}
+                    {% if perms.quiz.delete_tag %}
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ object.get_delete_url }}">Delete</a>
+                    {% endif %}
                 </div>
             </div>
+
             <h2 class="article-title">{{ object.name|title }}</h2>
             {% if tag.quiz_set.all %}
                 <p><h4>Quizzes related to this tag:</h4></p>

@@ -9,9 +9,9 @@
     <title>
         {% block title %}
             Create A Quiz
-        {% if title %}
-            - {{ title }}
-        {% endif %}
+            {% if title %}
+                - {{ title }}
+            {% endif %}
         {% endblock title %}
     </title>
 
@@ -31,22 +31,25 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="{% url 'quiz_list' %}">Quizzes</a>
-                <a class="nav-item nav-link" href="{% url 'quiz_tag_list' %}">Tags</a>
-            </div>
-            <!-- Navbar Right Side -->
-            <div class="navbar-nav">
-                {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{% url 'quiz_create' %}">New Quiz</a>
-                    <a class="nav-item nav-link" href="{% url 'quiz_tag_create' %}">New Tag</a>
-                    <a class="nav-item nav-link" href="{% url 'profile_update' %}">Profile</a>
-                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                {% else %}
-                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                {% endif %}
-            </div>
+                <!-- Navbar Auto -->
+                <div class="navbar-nav mr-auto">
+                    <a class="nav-item nav-link" href="{% url 'quiz_list' %}">Quizzes</a>
+                    <a class="nav-item nav-link" href="{% url 'quiz_tag_list' %}">Tags</a>
+                </div>
+                <!-- Navbar Right Side -->
+                <div class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{% url 'quiz_create' %}">New Quiz</a>
+                        {% if perms.tag.add_tag %}
+                            <a class="nav-item nav-link" href="{% url 'quiz_tag_create' %}">New Tag</a>
+                        {% endif %}
+                        <a class="nav-item nav-link" href="{% url 'profile_update' %}">Profile</a>
+                        <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                </div>
           </div>
         </div>
       </nav>

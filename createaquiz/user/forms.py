@@ -7,7 +7,7 @@ from .models import Profile
 
 
 class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()  # Add email field to UserCreationForm
+    email = forms.EmailField()  # Make email a mandatory field
 
     class Meta:
         model = User

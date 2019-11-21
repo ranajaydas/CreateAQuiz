@@ -8,7 +8,7 @@ class SlugCleanMixin:
     """Mixin class for slug cleaning methods."""
 
     def clean_slug(self):
-        """Ensure all 'slugs' are lowercase and user does not make a slug named 'create'."""
+        """Ensure all slugs are lowercase and user does not make a slug named 'create'."""
         new_slug = self.cleaned_data['slug'].lower()
         if new_slug == 'create':
             raise ValidationError("Slug may not be 'create'.")
@@ -28,7 +28,7 @@ class TagForm(SlugCleanMixin, forms.ModelForm):
 class QuizForm(SlugCleanMixin, forms.ModelForm):
     class Meta:
         model = Quiz
-        fields = '__all__'
+        exclude = ('author',)
 
 
 class QuestionForm(forms.ModelForm):

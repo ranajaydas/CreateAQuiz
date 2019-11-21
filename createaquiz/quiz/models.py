@@ -1,5 +1,6 @@
 from django.db import models
 from django.shortcuts import reverse
+from django.contrib.auth.models import User
 
 
 class Tag(models.Model):
@@ -21,6 +22,9 @@ class Tag(models.Model):
     def get_delete_url(self):
         return reverse('quiz_tag_delete', kwargs={'slug': self.slug})
 
+    def get_parent_url(self):
+        return reverse('quiz_tag_list')
+
 
 class Quiz(models.Model):
     name = models.CharField(max_length=63, db_index=True)
@@ -28,6 +32,7 @@ class Quiz(models.Model):
     description = models.TextField()
     pub_date = models.DateField('date published', auto_now_add=True)
     tags = models.ManyToManyField(Tag, blank=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)   # If user deleted, posts are not deleted
 
     class Meta:
         ordering = ['name']
