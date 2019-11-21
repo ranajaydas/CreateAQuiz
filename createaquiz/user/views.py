@@ -1,12 +1,6 @@
-from django.conf import settings
-from django.contrib.auth import get_user, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.template.response import TemplateResponse
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_protect
-from django.views.generic import View, DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.contrib import messages
 from .models import Profile
 from .forms import UserRegisterForm
@@ -26,32 +20,9 @@ def register(request):
     return render(request, 'user/register.html', {'form': form})
 
 
-class DisableAccount(LoginRequiredMixin, View):
-    success_url = settings.LOGIN_REDIRECT_URL
-    template_name = 'user/user_confirm_delete.html'
-
-    @method_decorator(csrf_protect)
-    def get(self, request):
-        return TemplateResponse(request, self.template_name)
-
-    @method_decorator(csrf_protect)
-    def post(self, request):
-        user = get_user(request)
-        user.set_unusable_password()
-        user.is_active = False
-        user.save()
-        logout(request)
-        return redirect(self.success_url)
-
-
-class ProfileDetail(LoginRequiredMixin, ProfileGetObjectMixin, DetailView):
-    model = Profile
-
-
 class ProfileUpdate(LoginRequiredMixin, ProfileGetObjectMixin, UpdateView):
     model = Profile
-    fields = ('image', 'name', 'about',)
-    success_url = reverse_lazy('profile')
+    fields = ('name', 'about', 'image',)
 
 
 class PublicProfileDetail(DetailView):

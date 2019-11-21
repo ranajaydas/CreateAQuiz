@@ -1,0 +1,28 @@
+{% extends parent_template|default:'user/base_user.html' %}
+
+{% block title %}
+    {{ block.super }} - {{ profile.user.get_username }}'s Profile
+{% endblock title %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ profile.image.url }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ profile.name }}</h2>
+                {% if user.pk == profile.user.pk %}
+                    <p class="text-secondary">{{ profile.user.email }}</p>
+                    <p class="text-secondary">
+                        <a href="{% url 'password_change' %}">Change Password</a>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% block below_header %}
+        This is default content!
+    {% endblock below_header %}
+
+{% endblock content %}
+

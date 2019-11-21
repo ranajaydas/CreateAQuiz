@@ -10,6 +10,7 @@ def form(context, *args, **kwargs):
     action = (args[0] if len(args) > 0 else kwargs.get('action'))
     button = (args[1] if len(args) > 1 else kwargs.get('button'))
     method = (args[2] if len(args) > 2 else kwargs.get('method'))
+    enc_type = (args[3] if len(args) > 3 else kwargs.get('enc_type'))
     form = context.get('form')
     if action is None:
         raise TemplateSyntaxError("form template tag requires at least one argument: action, which is a URL.")
@@ -18,6 +19,7 @@ def form(context, *args, **kwargs):
         'button': button,
         'form': form,
         'method': method,
+        'enc_type': enc_type,
     }
 
 
