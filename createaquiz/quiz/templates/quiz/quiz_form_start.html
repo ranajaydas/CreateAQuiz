@@ -1,39 +1,55 @@
 {% extends parent_template|default:'quiz/base_quiz.html' %}
-{% load crispy_forms_tags %}
 
 {% block title %}
-    {{ block.super }} - {{ object.name }}
+    {{ block.super }} - {{ quiz.name }}
 {% endblock title %}
 
 {% block content %}
     <div class="content-section">
-        <form method="post">
+        <form action="{{ quiz_start }}" method="post">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">{{ quiz.name }}</legend>
-                {{ form|crispy }}
+                <legend class="border-bottom mb-4"><a href="{{ quiz.get_absolute_url }}">{{ quiz.name }}</a></legend>
                 {% if quiz.question_set.all %}
                     <ol>
                         {% for question in quiz.question_set.all %}
-                            <li>
+                            <li class="mt-1 mb-1">
                                 <strong>{{ question.question_text }}</strong><br>
                             </li>
                             {% for choice in question.get_random_choices %}
-                                {% if choice == question.correct_choice %}
-                                    <input type="radio" name="{{ question.question_text }}" value="{{ choice }}"><strong> {{ choice }}</strong></input><br>
-                                {% else %}
-                                    <input type="radio" name="{{ question.question_text }}" value="{{ choice }}"> {{ choice }}</input><br>
-                                {% endif %}
+                                <input class="mt-2 mb-2" type="radio" name="{{ question.question_text }}" value="{{ choice }}">
+                                    {% if choice == question.correct_choice and form_posted == True %}
+                                        <strong>{{ choice }}</strong>
+                                    {% else %}
+                                        {{ choice }}
+                                    {% endif %}
+                                </input><br>
                             {% endfor %}
                         {% endfor %}
                     </ol>
                 {% endif %}
             </fieldset>
+
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Submit</button>
-                <button class="btn btn-outline-info" type="reset">Reset</button>
+                {% if form_posted %}
+                    <h3>You scored {{ quiz_score }} out of {{ quiz_total_questions }}!</h3>
+                    <a href="{{ quiz_start }}" class="btn btn-outline-primary mt-1 mb-1">Try Again?</a>
+                    <a href="{% url 'quiz_list' %}" class="btn btn-outline-info mt-1 mb-1">Try Our Other Quizzes!</a>
+                {% else %}
+                    <button class="btn btn-outline-primary" type="submit">Submit</button>
+                    <button class="btn btn-outline-info" type="reset">Reset</button>
+                {% endif %}
             </div>
         </form>
+        {% if quiz.tags.all %}
+            <hr/>
+            <ul class="list-inline">
+                <li class="list-inline-item">Tags:</li>
+                {% for tag in quiz.tags.all %}
+                    <li class="list-inline-item"><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 {% endblock content %}
 

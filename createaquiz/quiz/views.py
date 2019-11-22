@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, CreateView, DeleteView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib import messages
@@ -55,9 +55,26 @@ class QuizDetail(DetailView):
     model = Quiz
 
 
-class QuizStart(DetailView):
-    model = Quiz
-    template_name = 'quiz/quiz_form_start.html'
+def quiz_start(request, slug):
+    quiz = get_object_or_404(Quiz, slug__iexact=slug)
+    quiz_score = 0
+    quiz_total_questions = quiz.question_set.count()
+    form_posted = False
+
+    if request.method == 'POST':
+        form_posted = True
+        for question in quiz.question_set.all():
+            user_answer = request.POST.get(question.question_text)
+            if user_answer == question.correct_choice:
+                quiz_score += 1
+
+    context = {
+        'form_posted': form_posted,
+        'quiz': quiz,
+        'quiz_score': quiz_score,
+        'quiz_total_questions': quiz_total_questions,
+    }
+    return render(request, 'quiz/quiz_form_start.html', context)
 
 
 class QuizCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
