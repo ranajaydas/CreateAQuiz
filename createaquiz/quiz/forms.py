@@ -8,10 +8,10 @@ class SlugCleanMixin:
     """Mixin class for slug cleaning methods."""
 
     def clean_slug(self):
-        """Ensure all slugs are lowercase and user does not make a slug named 'create'."""
+        """Ensure all slugs are lowercase and user does not make a slug named 'create' or 'tag'."""
         new_slug = self.cleaned_data['slug'].lower()
-        if new_slug == 'create':
-            raise ValidationError("Slug may not be 'create'.")
+        if new_slug == 'create' or 'tag':
+            raise ValidationError("Slug may not be {}.".format(new_slug))
         return new_slug
 
 
