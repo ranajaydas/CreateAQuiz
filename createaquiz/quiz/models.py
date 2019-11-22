@@ -54,10 +54,6 @@ class Quiz(models.Model):
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    correct_answer = models.CharField(max_length=100)
-    incorrect_answer_1 = models.CharField(max_length=100)
-    incorrect_answer_2 = models.CharField(max_length=100)
-    incorrect_answer_3 = models.CharField(max_length=100)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -72,12 +68,17 @@ class Question(models.Model):
     def get_delete_url(self):
         return reverse('quiz_question_delete', kwargs={'slug': self.quiz.slug, 'pk': self.pk})
 
-    def get_random_options(self):
-        option_list = [
-            self.correct_answer,
-            self.incorrect_answer_1,
-            self.incorrect_answer_2,
-            self.incorrect_answer_3,
+
+class Choice(models.Model):
+    choice_text = models.CharField(max_length=63)
+    correct = models.BooleanField()
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = [
+            # no duplicated choice per question
+            ('question', 'choice_text'),
         ]
-        shuffle(option_list)
-        return option_list
+
+    def __str__(self):
+        return self.choice_text
