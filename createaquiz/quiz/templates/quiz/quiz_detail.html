@@ -27,13 +27,14 @@
                 <a class="btn btn-secondary btn-block mt-1 mb-1" href="{{ quiz.get_start_url }}">Start Quiz!</a>
             </p>
             {% if object.author == user %}
+            <hr/>
+                <h3>Edit Quiz:</h3>
+                <a class="btn btn-outline-primary btn-sm mt-2 mb-2" href="{{ quiz.create_question_url }}">Add New Question</a>
                 {% if quiz.question_set.all %}
-                <h3>Questions:</h3>
-                <a class="btn btn-outline-primary btn-sm mt-2 mb-2" href="{{ quiz.create_question_url }}">New Question</a>
                     <ol>
                         {% for question in quiz.question_set.all %}
                             <li>
-                                <strong>{{ question.question_text }}</strong><br>
+                                <strong>{{ question.question_text }}</strong>
                                 <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{{ question.get_update_url }}">Update</a>
                                 <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{{ question.get_delete_url }}">Delete</a>
                             </li>
@@ -52,6 +53,7 @@
             {% endif %}
 
             {% if object.tags.all %}
+                <hr/>
                 <ul class="list-inline">
                     <li class="list-inline-item">Tags:</li>
                     {% for tag in object.tags.all %}
