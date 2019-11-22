@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, CreateView, DeleteView, ListView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -82,23 +83,18 @@ class QuizDelete(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, Del
         return super().delete(request, *args, **kwargs)
 
 
-class QuestionDetail(DetailView):
-    model = Question
-
-
-class QuestionCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class QuestionCreate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, CreateView):
     form_class = QuestionForm
     model = Question
-    success_url = 'quiz_detail'
+    success_message = 'New question created!'
 
-    def form_valid(self, form):
-        form.instance.quiz.author = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        """Passes if the user is the author."""
-        question = self.get_object()
-        return self.request.user == question.quiz.author
+    def get_initial(self):
+        """Automatically associate question with correct quiz."""
+        quiz_slug = self.kwargs.get('quiz_slug')
+        self.quiz = get_object_or_404(Quiz, slug__iexact=quiz_slug)
+        initial = {'quiz': self.quiz, }
+        initial.update(self.initial)
+        return initial
 
 
 class QuestionUpdate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, UpdateView):
@@ -106,16 +102,4 @@ class QuestionUpdate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin,
     model = Question
     template_name_suffix = '_form_update'
     success_message = 'Question updated.'
-
-
-class QuestionDelete(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, DeleteView):
-    model = Question
-    success_url = reverse_lazy('quiz_list')
-    success_message = 'Question deleted.'
-
-    def delete(self, request, *args, **kwargs):
-        """Shows success_message upon deletion."""
-        messages.warning(self.request, self.success_message)
-        return super().delete(request, *args, **kwargs)
-
 

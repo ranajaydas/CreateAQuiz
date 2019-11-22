@@ -60,7 +60,7 @@ class Question(models.Model):
         return self.question_text
 
     def get_absolute_url(self):
-        return reverse('quiz_question_detail')
+        return reverse('quiz_detail', kwargs={'slug': self.quiz.slug})
 
     def get_update_url(self):
         return reverse('quiz_question_update', kwargs={'slug': self.quiz.slug, 'pk': self.pk})

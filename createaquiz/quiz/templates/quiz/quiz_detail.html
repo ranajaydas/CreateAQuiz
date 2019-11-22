@@ -24,12 +24,26 @@
             </div>
             <h2 class="article-title">{{ object.name }}</h2>
             <p class="article-content">{{ object.description|linebreaks }}</p>
-            {% if quiz.question_set.all %}
-                <ol>
-                    {% for question in quiz.question_set.all %}
-                        <li>{{ question.question_text }}</li>
-                    {% endfor %}
-                </ol>
+            {% if object.author == user %}
+                {% if quiz.question_set.all %}
+                <h3>Questions:</h3>
+                    <ol>
+                        {% for question in quiz.question_set.all %}
+                            <li>{{ question.question_text }}</li>
+                            {% if question.choice_set.all %}
+                                <ol>
+                                    {% for choice in question.choice_set.all %}
+                                        {% if choice.correct %}
+                                            <li><strong>{{ choice.choice_text }}</strong></li>
+                                        {% else %}
+                                            <li>{{ choice.choice_text }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                {% endif %}
             {% endif %}
 
             {% if object.tags.all %}

@@ -1,15 +1,29 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.shortcuts import get_object_or_404
+from .models import Quiz
 
 
 class UserIsAuthorMixin(UserPassesTestMixin):
+
     def form_valid(self, form):
         """Valid if the user is the author."""
-        form.instance.author = self.request.user
+        if self.model.__name__ is 'Quiz':
+            form.instance.author = self.request.user
+
+        if self.model.__name__ is 'Question':
+            form.instance.quiz.author = self.request.user
+
         return super().form_valid(form)
 
     def test_func(self):
         """Passes if the user is the author."""
-        quiz = self.get_object()
+        if self.model.__name__ is 'Quiz':
+            quiz = self.get_object()
+
+        if self.model.__name__ is 'Question':
+            quiz_slug = self.kwargs.get('quiz_slug')
+            quiz = get_object_or_404(Quiz, slug__iexact=quiz_slug)
+
         return self.request.user == quiz.author
 
 

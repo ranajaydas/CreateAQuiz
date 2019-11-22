@@ -2,9 +2,9 @@
 {% load display_form %}
 
 {% block title %}
-    {{ block.super }} - Create New Question
+    {{ block.super }} - Create Question
 {% endblock title %}
 
 {% block content %}
-    {% form question_create 'Create Question' %}
+    {% form quiz_question_create 'Create Question' %}
 {% endblock content %}
