@@ -1,0 +1,39 @@
+{% extends parent_template|default:'quiz/base_quiz.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {{ block.super }} - {{ object.name }}
+{% endblock title %}
+
+{% block content %}
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">{{ quiz.name }}</legend>
+                {{ form|crispy }}
+                {% if quiz.question_set.all %}
+                    <ol>
+                        {% for question in quiz.question_set.all %}
+                            <li>
+                                <strong>{{ question.question_text }}</strong><br>
+                            </li>
+                            {% for choice in question.get_random_choices %}
+                                {% if choice == question.correct_choice %}
+                                    <input type="radio" name="{{ question.question_text }}" value="{{ choice }}"><strong> {{ choice }}</strong></input><br>
+                                {% else %}
+                                    <input type="radio" name="{{ question.question_text }}" value="{{ choice }}"> {{ choice }}</input><br>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </ol>
+                {% endif %}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit</button>
+                <button class="btn btn-outline-info" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+

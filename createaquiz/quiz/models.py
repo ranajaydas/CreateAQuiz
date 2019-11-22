@@ -51,9 +51,19 @@ class Quiz(models.Model):
     def get_delete_url(self):
         return reverse('quiz_delete', kwargs={'slug': self.slug})
 
+    def get_start_url(self):
+        return reverse('quiz_start', kwargs={'slug': self.slug})
+
+    def create_question_url(self):
+        return reverse('quiz_question_create', kwargs={'quiz_slug': self.slug})
+
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
+    correct_choice = models.CharField(max_length=63, unique=True)
+    incorrect_choice_1 = models.CharField(max_length=63, unique=True)
+    incorrect_choice_2 = models.CharField(max_length=63, unique=True)
+    incorrect_choice_3 = models.CharField(max_length=63, unique=True)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -63,22 +73,15 @@ class Question(models.Model):
         return reverse('quiz_detail', kwargs={'slug': self.quiz.slug})
 
     def get_update_url(self):
-        return reverse('quiz_question_update', kwargs={'slug': self.quiz.slug, 'pk': self.pk})
+        return reverse('quiz_question_update', kwargs={'quiz_slug': self.quiz.slug, 'pk': self.pk})
 
     def get_delete_url(self):
-        return reverse('quiz_question_delete', kwargs={'slug': self.quiz.slug, 'pk': self.pk})
+        return reverse('quiz_question_delete', kwargs={'quiz_slug': self.quiz.slug, 'pk': self.pk})
 
-
-class Choice(models.Model):
-    choice_text = models.CharField(max_length=63)
-    correct = models.BooleanField()
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = [
-            # no duplicated choice per question
-            ('question', 'choice_text'),
-        ]
-
-    def __str__(self):
-        return self.choice_text
+    def get_random_choices(self):
+        choice_list = [self.correct_choice,
+                       self.incorrect_choice_1,
+                       self.incorrect_choice_2,
+                       self.incorrect_choice_3]
+        shuffle(choice_list)
+        return choice_list

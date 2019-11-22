@@ -23,24 +23,29 @@
                 {% endif %}
             </div>
             <h2 class="article-title">{{ object.name }}</h2>
-            <p class="article-content">{{ object.description|linebreaks }}</p>
+            <p class="article-content">{{ object.description|linebreaks }}
+                <a class="btn btn-secondary btn-block mt-1 mb-1" href="{{ quiz.get_start_url }}">Start Quiz!</a>
+            </p>
             {% if object.author == user %}
                 {% if quiz.question_set.all %}
                 <h3>Questions:</h3>
+                <a class="btn btn-outline-primary btn-sm mt-2 mb-2" href="{{ quiz.create_question_url }}">New Question</a>
                     <ol>
                         {% for question in quiz.question_set.all %}
-                            <li>{{ question.question_text }}</li>
-                            {% if question.choice_set.all %}
+                            <li>
+                                <strong>{{ question.question_text }}</strong><br>
+                                <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{{ question.get_update_url }}">Update</a>
+                                <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{{ question.get_delete_url }}">Delete</a>
+                            </li>
                                 <ol>
-                                    {% for choice in question.choice_set.all %}
-                                        {% if choice.correct %}
-                                            <li><strong>{{ choice.choice_text }}</strong></li>
-                                        {% else %}
-                                            <li>{{ choice.choice_text }}</li>
-                                        {% endif %}
-                                    {% endfor %}
+                                {% for choice in question.get_random_choices %}
+                                    {% if choice == question.correct_choice %}
+                                        <li><strong>{{ choice }}</strong></li>
+                                    {% else %}
+                                        <li>{{ choice }}</li>
+                                    {% endif %}
+                                {% endfor %}
                                 </ol>
-                            {% endif %}
                         {% endfor %}
                     </ol>
                 {% endif %}

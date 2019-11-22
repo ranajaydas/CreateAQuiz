@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import (QuizList, QuizDetail, QuizCreate, QuizUpdate, QuizDelete,
-                    QuestionCreate, QuestionUpdate,
+from .views import (QuizList, QuizDetail, QuizCreate, QuizUpdate, QuizDelete, QuizStart,
+                    QuestionCreate, QuestionUpdate, QuestionDelete,
                     TagList, TagDetail, TagCreate, TagUpdate, TagDelete)
 
 urlpatterns = [
@@ -10,10 +10,12 @@ urlpatterns = [
     path('<slug>/', QuizDetail.as_view(), name='quiz_detail'),
     path('<slug>/update', QuizUpdate.as_view(), name='quiz_update'),
     path('<slug>/delete', QuizDelete.as_view(), name='quiz_delete'),
+    path('<slug>/begin', QuizStart.as_view(), name='quiz_start'),
 
     # Question URLs
     path('<quiz_slug>/question/create/', QuestionCreate.as_view(), name='quiz_question_create'),
-    path('<quiz_slug>/question/<pk>/update', QuestionUpdate.as_view(), name='quiz_question_update'),
+    path('<quiz_slug>/question/<int:pk>/update', QuestionUpdate.as_view(), name='quiz_question_update'),
+    path('<quiz_slug>/question/<int:pk>/delete', QuestionDelete.as_view(), name='quiz_question_delete'),
 
     # Tag URLs
     path('tag', TagList.as_view(), name='quiz_tag_list'),

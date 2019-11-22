@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, CreateView, DeleteView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib import messages
@@ -55,6 +55,11 @@ class QuizDetail(DetailView):
     model = Quiz
 
 
+class QuizStart(DetailView):
+    model = Quiz
+    template_name = 'quiz/quiz_form_start.html'
+
+
 class QuizCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = QuizForm
     model = Quiz
@@ -103,3 +108,16 @@ class QuestionUpdate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin,
     template_name_suffix = '_form_update'
     success_message = 'Question updated.'
 
+
+class QuestionDelete(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, DeleteView):
+    model = Question
+    success_message = 'Question deleted.'
+
+    def get_success_url(self):
+        slug = self.kwargs.get('quiz_slug')
+        return reverse_lazy('quiz_detail', kwargs={'slug': slug})
+
+    def delete(self, request, *args, **kwargs):
+        """Shows success_message upon deletion."""
+        messages.warning(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)

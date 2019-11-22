@@ -1,0 +1,10 @@
+{% extends parent_template|default:'quiz/base_quiz.html' %}
+{% load display_form %}
+
+{% block title %}
+    {{ block.super }} - Delete Question
+{% endblock title %}
+
+{% block content %}
+    {% delete_form question.get_delete_url 'Delete Question' %}
+{% endblock content %}
