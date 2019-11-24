@@ -1,18 +1,18 @@
 {% extends parent_template|default:'quiz/base_quiz.html' %}
 
 {% block title %}
-    {{ block.super }} - {{ quiz.name }}
+    {{ block.super }} - {{ object.name }}
 {% endblock title %}
 
-{% block content %}
+{% block sub_content %}
     <div class="content-section">
         <form action="{{ quiz_start }}" method="post">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4"><a href="{{ quiz.get_absolute_url }}">{{ quiz.name }}</a></legend>
-                {% if quiz.question_set.all %}
+                <legend class="border-bottom mb-4"><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></legend>
+                {% if object.question_set.all %}
                     <ol>
-                        {% for question in quiz.question_set.all %}
+                        {% for question in object.question_set.all %}
                             <li class="mt-1 mb-1">
                                 <strong>{{ question.question_text }}</strong><br>
                             </li>
@@ -41,15 +41,15 @@
                 {% endif %}
             </div>
         </form>
-        {% if quiz.tags.all %}
+        {% if object.tags.all %}
             <hr/>
             <ul class="list-inline">
                 <li class="list-inline-item">Tags:</li>
-                {% for tag in quiz.tags.all %}
+                {% for tag in object.tags.all %}
                     <li class="list-inline-item"><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
                 {% endfor %}
             </ul>
         {% endif %}
     </div>
-{% endblock content %}
+{% endblock sub_content %}
 

@@ -1,6 +1,28 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 from .models import Quiz
+
+
+class CreateUpdateMixin:
+    """Class inherited by Create and Update Views."""
+    template_name = 'quiz/base_quiz_form.html'
+
+    """Simple mixin to pass context data to Create and Update views."""
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = self.page_title
+        return context
+
+
+class DeleteMixin:
+    """Class inherited by Delete Views."""
+    template_name = 'quiz/base_quiz_confirm_delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        """Shows success_message upon deletion."""
+        messages.warning(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)
 
 
 class UserIsAuthorMixin(UserPassesTestMixin):

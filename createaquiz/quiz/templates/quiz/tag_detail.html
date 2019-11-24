@@ -4,7 +4,7 @@
     {{ block.super }} - {{ object.name|title }}
 {% endblock title %}
 
-{% block content %}
+{% block sub_content %}
     <article class="media content-section">
         <div class="media-body">
 
@@ -22,9 +22,9 @@
             </div>
 
             <h2 class="article-title">{{ object.name|title }}</h2>
-            {% if tag.quiz_set.all %}
+            {% if object.quiz_set.all %}
                 <p><h4>Quizzes related to this tag:</h4></p>
-                {% for quiz in tag.quiz_set.all %}
+                {% for quiz in object.quiz_set.all %}
                     <a href="{{ quiz.get_absolute_url }}" class="list-group-item list-group-item-action">
                         {{ quiz.name }}
                     </a>
@@ -34,4 +34,4 @@
             {% endif %}
         </div>
     </article>
-{% endblock content %}
+{% endblock sub_content %}

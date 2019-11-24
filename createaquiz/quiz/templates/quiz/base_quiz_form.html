@@ -2,9 +2,9 @@
 {% load display_form %}
 
 {% block title %}
-    {{ block.super }} - Create Tag
+    {{ block.super }} - {{ page_title }}
 {% endblock title %}
 
 {% block content %}
-    {% form quiz_tag_create 'Create Tag' %}
+    {% form '' page_title %}
 {% endblock content %}

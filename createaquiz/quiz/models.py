@@ -4,7 +4,13 @@ from django.shortcuts import reverse
 from django.contrib.auth.models import User
 
 
-class Tag(models.Model):
+class CustomModel:
+    """Common Model inherited by other models."""
+    def get_model(self):
+        return self.__class__.__name__
+
+
+class Tag(CustomModel, models.Model):
     name = models.CharField(max_length=31, unique=True)
     slug = models.SlugField(max_length=31, unique=True, help_text='A label for URL config')
 
@@ -15,19 +21,19 @@ class Tag(models.Model):
         return self.name.title()
 
     def get_absolute_url(self):
-        return reverse('quiz_tag_detail', kwargs={'slug': self.slug})
+        return reverse('tag_detail', kwargs={'slug': self.slug})
 
     def get_update_url(self):
-        return reverse('quiz_tag_update', kwargs={'slug': self.slug})
+        return reverse('tag_update', kwargs={'slug': self.slug})
 
     def get_delete_url(self):
-        return reverse('quiz_tag_delete', kwargs={'slug': self.slug})
+        return reverse('tag_delete', kwargs={'slug': self.slug})
 
     def get_parent_url(self):
-        return reverse('quiz_tag_list')
+        return reverse('tag_list')
 
 
-class Quiz(models.Model):
+class Quiz(CustomModel, models.Model):
     name = models.CharField(max_length=63, db_index=True)
     slug = models.SlugField(max_length=63, unique=True, help_text='A label for URL config')
     description = models.TextField()
@@ -58,7 +64,7 @@ class Quiz(models.Model):
         return reverse('quiz_question_create', kwargs={'quiz_slug': self.slug})
 
 
-class Question(models.Model):
+class Question(CustomModel, models.Model):
     question_text = models.CharField(max_length=200)
     correct_choice = models.CharField(max_length=63, unique=True)
     incorrect_choice_1 = models.CharField(max_length=63, unique=True)

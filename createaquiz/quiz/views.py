@@ -2,64 +2,59 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, CreateView, DeleteView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Tag, Quiz, Question
 from .forms import TagForm, QuizForm, QuestionForm
-from .utils import PageLinksMixin, UserIsAuthorMixin
+from .utils import PageLinksMixin, UserIsAuthorMixin, DeleteMixin, CreateUpdateMixin
 
 
-class TagList(PageLinksMixin, ListView):
-    model = Tag
-    paginate_by = 5
-
-
-class TagDetail(DetailView):
+class TagListView(ListView):
     model = Tag
 
 
-class TagCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class TagDetailView(DetailView):
+    model = Tag
+
+
+class TagCreateView(CreateUpdateMixin, LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = TagForm
     model = Tag
     success_message = 'New Tag created!'
-    permission_required = 'quiz.add_tag'
+    permission_required = '.add_tag'
+    page_title = 'Create Tag'
 
 
-class TagUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class TagUpdateView(CreateUpdateMixin, LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = TagForm
     model = Tag
-    template_name_suffix = '_form_update'
     success_message = 'Tag updated.'
-    permission_required = 'quiz.change_tag'
+    permission_required = '.change_tag'
+    page_title = 'Update Tag'
 
 
-class TagDelete(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
+class TagDeleteView(DeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Tag
-    success_url = reverse_lazy('quiz_tag_list')
+    success_url = reverse_lazy('tag_list')
     success_message = 'Tag deleted.'
-    permission_required = 'quiz.delete_tag'
-
-    def delete(self, request, *args, **kwargs):
-        """Shows success_message upon deletion."""
-        messages.warning(self.request, self.success_message)
-        return super().delete(request, *args, **kwargs)
+    permission_required = '.delete_tag'
 
 
-class QuizList(PageLinksMixin, ListView):
+class QuizListView(PageLinksMixin, ListView):
     model = Quiz
     paginate_by = 5
+    ordering = ['-id']             # Orders the posts by newest to oldest by id
 
 
-class QuizDetail(DetailView):
+class QuizDetailView(DetailView):
     model = Quiz
 
 
-def quiz_start(request, slug):
+def quiz_start_view(request, slug):
     quiz = get_object_or_404(Quiz, slug__iexact=slug)
     quiz_score = 0
     quiz_total_questions = quiz.question_set.count()
-    form_posted = False
+    form_posted = False     # Checks if the form has been posted by the user
 
     if request.method == 'POST':
         form_posted = True
@@ -70,45 +65,42 @@ def quiz_start(request, slug):
 
     context = {
         'form_posted': form_posted,
-        'quiz': quiz,
+        'object': quiz,
         'quiz_score': quiz_score,
         'quiz_total_questions': quiz_total_questions,
     }
-    return render(request, 'quiz/quiz_form_start.html', context)
+    return render(request, 'quiz/quiz_start_form.html', context)
 
 
-class QuizCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class QuizCreateView(CreateUpdateMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = QuizForm
     model = Quiz
     success_message = 'New quiz created!'
+    page_title = 'Create Quiz'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
 
-class QuizUpdate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, UpdateView):
+class QuizUpdateView(CreateUpdateMixin, LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, UpdateView):
     form_class = QuizForm
     model = Quiz
-    template_name_suffix = '_form_update'
     success_message = 'Quiz updated.'
+    page_title = 'Update Quiz'
 
 
-class QuizDelete(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, DeleteView):
+class QuizDeleteView(DeleteMixin, LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, DeleteView):
     model = Quiz
     success_url = reverse_lazy('quiz_list')
     success_message = 'Quiz deleted.'
 
-    def delete(self, request, *args, **kwargs):
-        """Shows success_message upon deletion."""
-        messages.warning(self.request, self.success_message)
-        return super().delete(request, *args, **kwargs)
 
-
-class QuestionCreate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, CreateView):
+class QuestionCreateView(CreateUpdateMixin, LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, CreateView):
     form_class = QuestionForm
     model = Question
     success_message = 'New question created!'
+    page_title = 'Create Question'
 
     def get_initial(self):
         """Automatically associate question with correct quiz."""
@@ -119,22 +111,17 @@ class QuestionCreate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin,
         return initial
 
 
-class QuestionUpdate(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, UpdateView):
+class QuestionUpdateView(CreateUpdateMixin, LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, UpdateView):
     form_class = QuestionForm
     model = Question
-    template_name_suffix = '_form_update'
     success_message = 'Question updated.'
+    page_title = 'Update Question'
 
 
-class QuestionDelete(LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, DeleteView):
+class QuestionDeleteView(DeleteMixin, LoginRequiredMixin, UserIsAuthorMixin, SuccessMessageMixin, DeleteView):
     model = Question
     success_message = 'Question deleted.'
 
     def get_success_url(self):
         slug = self.kwargs.get('quiz_slug')
         return reverse_lazy('quiz_detail', kwargs={'slug': slug})
-
-    def delete(self, request, *args, **kwargs):
-        """Shows success_message upon deletion."""
-        messages.warning(self.request, self.success_message)
-        return super().delete(request, *args, **kwargs)

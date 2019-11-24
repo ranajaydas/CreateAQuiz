@@ -4,17 +4,20 @@
     {{ block.super }} - {{ object.name }}
 {% endblock title %}
 
-{% block content %}
+{% block sub_content %}
     <article class="media content-section">
         {% if object.author %}
-            <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+            <a href="{{ object.author.profile.get_absolute_url }}">
+                <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+            </a>
         {% endif %}
         <div class="media-body">
             <div class="article-metadata">
-                {% if object.author %}
-                    Created by <a class="mr-2" href="{{ object.author.profile.get_absolute_url }}">{{ object.author }}</a>
-                {% endif %}
-                <small class="text-muted">{{ object.pub_date|date:"F d, Y" }}</small>
+                <small class="text-muted">Posted on {{ object.pub_date|date:"F d, Y" }}
+                    {% if object.author %}
+                        by <a class="mr-2" href="{{ object.author.profile.get_absolute_url }}">{{ object.author }}</a>
+                    {% endif %}
+                </small>
                 {% if object.author == user %}
                     <div>
                         <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ object.get_update_url }}">Update</a>
@@ -22,17 +25,17 @@
                     </div>
                 {% endif %}
             </div>
-            <h2 class="article-title">{{ object.name }}</h2>
+            <h2><a class="article-title" href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
             <p class="article-content">{{ object.description|linebreaks }}
-                <a class="btn btn-secondary btn-block mt-1 mb-1" href="{{ quiz.get_start_url }}">Start Quiz!</a>
+                <a class="btn btn-secondary btn-block mt-1 mb-1" href="{{ object.get_start_url }}">Start Quiz!</a>
             </p>
             {% if object.author == user %}
             <hr/>
                 <h3>Edit Quiz:</h3>
-                <a class="btn btn-outline-primary btn-sm mt-2 mb-2" href="{{ quiz.create_question_url }}">Add New Question</a>
-                {% if quiz.question_set.all %}
+                <a class="btn btn-outline-primary btn-sm mt-2 mb-2" href="{{ object.create_question_url }}">Add New Question</a>
+                {% if object.question_set.all %}
                     <ol>
-                        {% for question in quiz.question_set.all %}
+                        {% for question in object.question_set.all %}
                             <li>
                                 <strong>{{ question.question_text }}</strong>
                                 <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{{ question.get_update_url }}">Update</a>
@@ -51,9 +54,8 @@
                     </ol>
                 {% endif %}
             {% endif %}
-
+            <hr/>
             {% if object.tags.all %}
-                <hr/>
                 <ul class="list-inline">
                     <li class="list-inline-item">Tags:</li>
                     {% for tag in object.tags.all %}
@@ -63,4 +65,4 @@
             {% endif %}
         </div>
     </article>
-{% endblock content %}
+{% endblock sub_content %}

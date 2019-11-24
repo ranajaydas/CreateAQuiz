@@ -7,19 +7,19 @@
     {% endblock sub_content %}
 
     {% if is_paginated %}
-        <ul class="pagination">
+        <ul class="pagination mb-4">
             {% if first_page_url %}
-                <li><a href="{{ first_page_url }}">First</a></li>
+                <li class="page-item"><a class="page-link" href="{{ first_page_url }}">First</a></li>
             {% endif %}
             {% if previous_page_url %}
-                <li><a href="{{ previous_page_url }}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{{ previous_page_url }}">Previous</a></li>
             {% endif %}
-                <li>Page {{ page_obj.number }} of {{ paginator.num_pages }}</li>
+            <li class="page-item"><a class="page-link" href="">Page {{ page_obj.number }} of {{ paginator.num_pages }}</a></li>
             {% if next_page_url %}
-                <li><a href="{{ next_page_url }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="{{ next_page_url }}">Next</a></li>
             {% endif %}
             {% if last_page_url %}
-                <li><a href="{{ last_page_url }}">Last</a></li>
+                <li class="page-item"><a class="page-link" href="{{ last_page_url }}">Last</a></li>
             {% endif %}
         </ul>
     {% endif %}

@@ -2,9 +2,9 @@
 {% load display_form %}
 
 {% block title %}
-    {{ block.super }} - Create Question
+    {{ block.super }} - Delete {{ object.get_model }}
 {% endblock title %}
 
 {% block content %}
-    {% form quiz_question_create 'Create Question' %}
+    {% delete_form object.get_delete_url %}
 {% endblock content %}
