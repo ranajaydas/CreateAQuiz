@@ -17,6 +17,14 @@ class TagListView(ListView):
 class TagDetailView(DetailView):
     model = Tag
 
+    # Optimization to reduce number of database calls
+    queryset = (
+        Tag.objects
+        .prefetch_related('quiz_set',
+                          'quiz_set__author',
+                          )
+    )
+
 
 class TagCreateView(CreateUpdateMixin, LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = TagForm
@@ -45,23 +53,32 @@ class QuizListView(PageLinksMixin, ListView):
     model = Quiz
     paginate_by = 5
     ordering = ['-id']             # Orders the posts by newest to oldest by id
+    search_kwarg = 'q'
 
     def get_queryset(self):
-        """Override of get_queryset for adding search functionality."""
+        """Override of get_queryset to add search functionality."""
         query_set = super().get_queryset()
-        if 'q' in self.request.GET:
-            search_term = self.request.GET['q']
+        if self.search_kwarg in self.request.GET:
+            search_term = self.request.GET[self.search_kwarg]
             if search_term:
-                return Quiz.objects.filter(
+                query_set = Quiz.objects.filter(
                     Q(name__contains=search_term)
                     | Q(description__icontains=search_term)
                     | Q(slug__icontains=search_term)
                 )
-        return query_set
+        # Optimization to reduce number of database calls
+        return query_set.select_related('author').prefetch_related('tags')
 
 
 class QuizDetailView(DetailView):
     model = Quiz
+
+    # Optimization to reduce number of database calls
+    queryset = (
+        Quiz.objects
+        .select_related('author')
+        .prefetch_related('tags')
+    )
 
 
 def quiz_start_view(request, slug):

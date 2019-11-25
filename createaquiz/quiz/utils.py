@@ -51,9 +51,14 @@ class UserIsAuthorMixin(UserPassesTestMixin):
 
 class PageLinksMixin:
     page_kwarg = 'page'
+    search_kwarg = 'q'
 
     def _page_urls(self, page_number):
-        return "?{}={}".format(self.page_kwarg, page_number)
+        if self.search_kwarg in self.request.GET:
+            search_term = self.request.GET[self.search_kwarg]
+            return "?{}={}&{}={}".format(self.search_kwarg, search_term, self.page_kwarg, page_number)
+        else:
+            return "?{}={}".format(self.page_kwarg, page_number)
 
     def first_page(self, page):
         # don't show on first page
