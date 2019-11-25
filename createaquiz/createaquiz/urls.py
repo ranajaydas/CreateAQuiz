@@ -30,3 +30,9 @@ urlpatterns = [
 # modified from https://docs.djangoproject.com/en/2.2/howto/static-files/#serving-static-files-during-development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # Django debug toolbar
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
