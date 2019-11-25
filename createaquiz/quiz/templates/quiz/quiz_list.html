@@ -1,6 +1,16 @@
 {% extends parent_template|default:'quiz/base_quiz.html' %}
 
 {% block sub_content %}
+    <section id="search" class="mt-0 mb-4">
+        <form method="get" class="input-group">
+            <input class="form-control" type="text" name="q" id="q" placeholder="Search for quizzes..." value="{{ request.GET.q }}"/>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                <a href="{% url 'quiz_list' %}" class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </form>
+    </section>
+
     {% for object in object_list %}
         <article class="media content-section">
             {% if object.author %}
@@ -35,6 +45,6 @@
             </div>
         </article>
     {% empty %}
-        <li><em>There are currently no Quizzes available.</em></li>
+        <li class="mb-4"><em>No Quizzes found.</em></li>
     {% endfor %}
 {% endblock sub_content %}

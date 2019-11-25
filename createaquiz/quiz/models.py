@@ -44,6 +44,7 @@ class Quiz(CustomModel, models.Model):
     class Meta:
         ordering = ['name']
         get_latest_by = 'pub_date'
+        verbose_name_plural = 'Quizzes'
 
     def __str__(self):
         return self.name

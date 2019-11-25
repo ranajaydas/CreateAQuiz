@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, CreateView, DeleteView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 
 from .models import Tag, Quiz, Question
 from .forms import TagForm, QuizForm, QuestionForm
@@ -44,6 +45,19 @@ class QuizListView(PageLinksMixin, ListView):
     model = Quiz
     paginate_by = 5
     ordering = ['-id']             # Orders the posts by newest to oldest by id
+
+    def get_queryset(self):
+        """Override of get_queryset for adding search functionality."""
+        query_set = super().get_queryset()
+        if 'q' in self.request.GET:
+            search_term = self.request.GET['q']
+            if search_term:
+                return Quiz.objects.filter(
+                    Q(name__contains=search_term)
+                    | Q(description__icontains=search_term)
+                    | Q(slug__icontains=search_term)
+                )
+        return query_set
 
 
 class QuizDetailView(DetailView):
