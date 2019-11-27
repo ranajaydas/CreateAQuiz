@@ -1,7 +1,7 @@
 from random import shuffle
 from django.db import models
 from django.shortcuts import reverse
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class CustomModel:
@@ -39,7 +39,8 @@ class Quiz(CustomModel, models.Model):
     description = models.TextField()
     pub_date = models.DateField('date published', auto_now_add=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)   # If user deleted, posts are not deleted
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               on_delete=models.SET_NULL, null=True)   # If user deleted, posts are not deleted
 
     class Meta:
         ordering = ['name']
