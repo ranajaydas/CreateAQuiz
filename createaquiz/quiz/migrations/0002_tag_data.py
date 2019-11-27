@@ -14,6 +14,10 @@ TAGS = (
     ('tmnt', 'tmnt'),
     ('comics', 'comics'),
     ('avengers', 'avengers'),
+    ('asia', 'asia'),
+    ('mountains', 'mountains'),
+    ('food', 'food'),
+    ('video games', 'video-games'),
 )
 
 

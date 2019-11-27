@@ -68,10 +68,10 @@ class Quiz(CustomModel, models.Model):
 
 class Question(CustomModel, models.Model):
     question_text = models.CharField(max_length=200)
-    correct_choice = models.CharField(max_length=63, unique=True)
-    incorrect_choice_1 = models.CharField(max_length=63, unique=True)
-    incorrect_choice_2 = models.CharField(max_length=63, unique=True)
-    incorrect_choice_3 = models.CharField(max_length=63, unique=True)
+    correct_choice = models.CharField(max_length=63)
+    incorrect_choice_1 = models.CharField(max_length=63)
+    incorrect_choice_2 = models.CharField(max_length=63)
+    incorrect_choice_3 = models.CharField(max_length=63)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 
     def __str__(self):

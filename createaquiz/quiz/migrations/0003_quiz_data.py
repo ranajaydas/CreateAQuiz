@@ -7,21 +7,53 @@ from django.db import migrations
 
 QUIZZES = [
     {
-        'name': 'Know Your Powerpuff Girls Quiz',
+        'name': 'Know Your Powerpuff Girls Quiz!',
         'slug': 'know-your-powerpuff-girls',
         'description': """I am Mojo Jojo!! In order to defeat my arch enemies, the Powerpuff girls, I have created a quiz that helps me to remember important facts about them! You can learn about them too and join my evil forces!
-MOJO JOJO MOJO JOJO!""",
+\nMOJO JOJO MOJO JOJO!""",
         'pub_date': date(2019, 10, 29),
         'tags': ['powerpuff-girls', 'television'],
         'author': 'mojojojo',
     },
     {
-        'name': 'I hate Turtles!',
-        'slug': 'i-hate-turtles',
-        'description': "Fuck the turtles",
-        'pub_date': date(2019, 10, 29),
+        'name': 'The Teenage Mutant Ninja Turtles Quiz!',
+        'slug': 'tmnt-quiz',
+        'description': "I am The Shredder! I came here to knit capes and make quizzes...and I'm all outta yarn!",
+        'pub_date': date(2019, 10, 28),
         'tags': ['tmnt', 'television'],
         'author': 'shredder',
+    },
+    {
+        'name': 'The Capitals of Asia Quiz',
+        'slug': 'capitals-of-asia',
+        'description': "I am The Shredder! Wait, I already declared that in my last quiz...\nANYWAY!\nThis quiz will test you on my home continent, Asia, and its capital cities!",
+        'pub_date': date(2019, 10, 30),
+        'tags': ['asia', 'capitals', 'geography'],
+        'author': 'shredder',
+    },
+    {
+        'name': 'The Mountains of the World Quiz',
+        'slug': 'mountains-of-the-world',
+        'description': "Here's a quiz to test your knowledge about the mountains of the world!",
+        'pub_date': date(2019, 10, 27),
+        'tags': ['geography', 'mountains'],
+        'author': 'mojojojo',
+    },
+    {
+        'name': 'Food Around The World Quiz',
+        'slug': 'food-around-the-world',
+        'description': "I AM THE SHR...\n\nYou thought I was going to say SHREDDER, didn't you?\n\nHere's a quiz to test your knowledge of the different cuisines of the world!",
+        'pub_date': date(2019, 11, 1),
+        'tags': ['food'],
+        'author': 'shredder',
+    },
+    {
+        'name': 'Video Games Quiz',
+        'slug': 'video-games',
+        'description': "Mojo Jojo loves playing video games! Now Mojo Jojo will test you!",
+        'pub_date': date(2019, 11, 1),
+        'tags': ['video-games'],
+        'author': 'mojojojo',
     },
 ]
 
