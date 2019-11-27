@@ -9,11 +9,13 @@ PROFILES = [
         'name': 'Mojo Jojo',
         'slug': 'mojojojo',
         'about': 'Supreme evil monkey!\nArch nemesis of the Powerpuff girls\nPhilanthropist\nYoga enthusiast',
+        'image': 'profile_pics/mojojojo.jpg',
     },
     {
         'name': 'The Shredder',
         'slug': 'shredder',
-        'about': "The Shredder!\nI hate turtles!\nNot to be confused with the office appliance\nEven though I shred stuff\nApril O'Neil is...erm...cool and stuff\nFEAR ME!"
+        'about': "The Shredder!\nI hate turtles!\nNot to be confused with the office appliance\nEven though I shred stuff\nApril O'Neil is...erm...cool and stuff\nFEAR ME!",
+        'image': 'profile_pics/shredder.png',
     },
 ]
 
@@ -27,6 +29,7 @@ def add_profile_data(apps, schema_editor):
             name=profile_dict['name'],
             slug=profile_dict['slug'],
             about=profile_dict['about'],
+            image=profile_dict['image'],
         )
         profile.save()
 
