@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block sub_content %}
-    <div class="content-section">
+    <div class="content-section shadow-sm mb-5 rounded">
         <form action="{{ quiz_start }}" method="post">
             {% csrf_token %}
             <fieldset class="form-group">

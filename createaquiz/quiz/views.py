@@ -52,7 +52,7 @@ class TagDeleteView(DeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, Su
 class QuizListView(PageLinksMixin, ListView):
     model = Quiz
     paginate_by = 5
-    ordering = ['-id']             # Orders the posts by newest to oldest by id
+    ordering = ['-pub_date', '-id']             # Orders the posts by newest to oldest by pub-date and id
     search_kwarg = 'q'
 
     def get_queryset(self):

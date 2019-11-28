@@ -12,14 +12,20 @@
     </section>
 
     {% for object in object_list %}
-        <article class="media content-section">
-            {% if object.author %}
-                <a href="{{ object.author.profile.get_absolute_url }}">
-                    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+        <article class="shadow-sm mb-5 rounded">
+            {% if object.image %}
+                <a href="{{ object.get_absolute_url }}">
+                    <img class="img-fluid header-img-crop" src="{{ object.image.url }}">
                 </a>
             {% endif %}
-            <div class="media-body">
-                <div class="article-metadata">
+            <div class="media-body content-section">
+                <div class="article-metadata mb-4">
+                    {% if object.author %}
+                        <a class="float-left" href="{{ object.author.profile.get_absolute_url }}">
+                            <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+                        </a>
+                    {% endif %}
+                    <h2 class="mb-0"><a class="article-title" href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
                     <small class="text-muted">Posted on {{ object.pub_date|date:"F d, Y" }}
                         {% if object.author %}
                             by <a class="mr-2" href="{{ object.author.profile.get_absolute_url }}">{{ object.author }}</a>
@@ -32,7 +38,6 @@
                         </div>
                     {% endif %}
                 </div>
-                <h2><a class="article-title" href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
                 <p class="article-content">{{ object.description }}</p>
                 {% if object.tags.all %}
                     <ul class="list-inline">

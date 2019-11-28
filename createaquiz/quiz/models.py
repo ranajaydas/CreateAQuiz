@@ -2,6 +2,7 @@ from random import shuffle
 from django.db import models
 from django.shortcuts import reverse
 from django.conf import settings
+from core.utils import ImageResizeUploadS3
 
 
 class CustomModel:
@@ -33,7 +34,7 @@ class Tag(CustomModel, models.Model):
         return reverse('tag_list')
 
 
-class Quiz(CustomModel, models.Model):
+class Quiz(ImageResizeUploadS3, CustomModel, models.Model):
     name = models.CharField(max_length=63, db_index=True)
     slug = models.SlugField(max_length=63, unique=True, help_text='A label for URL config')
     description = models.TextField()
@@ -41,7 +42,10 @@ class Quiz(CustomModel, models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.SET_NULL, null=True)   # If user deleted, posts are not deleted
-    header_image = models.ImageField(default=None, upload_to='quiz_headers')
+    image = models.ImageField(null=True, blank=True, default=None, upload_to='quiz_headers')
+
+    # Maximum size of image allowed without resizing (in pixels)
+    max_image_size = (800, 800)
 
     class Meta:
         ordering = ['name']

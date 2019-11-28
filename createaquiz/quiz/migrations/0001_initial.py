@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(help_text='A label for URL config', max_length=63, unique=True)),
                 ('description', models.TextField()),
                 ('pub_date', models.DateField(auto_now_add=True, verbose_name='date published')),
-                ('header_image', models.ImageField(default=None, upload_to='quiz_headers')),
+                ('image', models.ImageField(null=True, blank=True, default=None, upload_to='quiz_headers')),
                 ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
                 ('tags', models.ManyToManyField(blank=True, to='quiz.Tag')),
             ],

@@ -14,14 +14,16 @@ QUIZZES = [
         'pub_date': date(2019, 10, 29),
         'tags': ['powerpuff-girls', 'television'],
         'author': 'mojojojo',
+        'image': 'quiz_headers/powerpuffgirls.jpg'
     },
     {
         'name': 'The Teenage Mutant Ninja Turtles Quiz!',
         'slug': 'tmnt-quiz',
-        'description': "I am The Shredder! I came here to knit capes and make quizzes...and I'm all outta yarn!",
+        'description': "I am The Shredder! I came here to knit capes and make quizzes...and I'm all outta yarn!\n\n(Image courtesy of Lionsgate)",
         'pub_date': date(2019, 10, 28),
         'tags': ['tmnt', 'television'],
         'author': 'shredder',
+        'image': 'quiz_headers/tmnt.jpg'
     },
     {
         'name': 'The Capitals of Asia Quiz',
@@ -30,6 +32,7 @@ QUIZZES = [
         'pub_date': date(2019, 10, 30),
         'tags': ['asia', 'capitals', 'geography'],
         'author': 'shredder',
+        'image': 'quiz_headers/tokyo.jpg'
     },
     {
         'name': 'The Mountains of the World Quiz',
@@ -38,6 +41,7 @@ QUIZZES = [
         'pub_date': date(2019, 10, 27),
         'tags': ['geography', 'mountains'],
         'author': 'mojojojo',
+        'image': 'quiz_headers/mountains.jpg'
     },
     {
         'name': 'Food Around The World Quiz',
@@ -46,6 +50,7 @@ QUIZZES = [
         'pub_date': date(2019, 11, 1),
         'tags': ['food'],
         'author': 'shredder',
+        'image': 'quiz_headers/food-quiz.jpg'
     },
     {
         'name': 'Video Games Quiz',
@@ -54,14 +59,16 @@ QUIZZES = [
         'pub_date': date(2019, 11, 1),
         'tags': ['video-games'],
         'author': 'mojojojo',
+        'image': 'quiz_headers/mario.jpeg'
     },
     {
-        'name': 'The Omlette du Fromage Quiz',
-        'slug': 'omlette-du-fromage',
-        'description': "Omlette",
+        'name': 'The Omelette du Fromage Quiz',
+        'slug': 'omelette-du-fromage',
+        'description': "Omelette...",
         'pub_date': date(2019, 11, 4),
         'tags': ['television', 'dexters-lab'],
         'author': 'dexter',
+        'image': 'quiz_headers/dexter.jpg'
     },
 ]
 
@@ -78,6 +85,8 @@ def add_quiz_data(apps, schema_editor):
             author=User.objects.get(username=quiz_dict['author']),
         )
         quiz.pub_date = quiz_dict['pub_date']
+        if 'image' in quiz_dict:
+            quiz.image = quiz_dict['image']
         quiz.save()
         for tag_slug in quiz_dict['tags']:
             quiz.tags.add(Tag.objects.get(slug=tag_slug))

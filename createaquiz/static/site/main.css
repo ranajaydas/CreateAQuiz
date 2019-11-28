@@ -40,7 +40,8 @@ a {
   background: #ffffff;
   padding: 10px 20px;
   border: 1px solid #dddddd;
-  border-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
   margin-bottom: 20px;
 }
 
@@ -64,7 +65,7 @@ a.article-title:hover {
 }
 
 .article-metadata {
-  padding-bottom: 1px;
+  padding-bottom: 12px;
   margin-bottom: 4px;
   border-bottom: 1px solid #e3e3e3
 }
@@ -89,4 +90,19 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+.header-img-crop {
+    background: #ffffff;
+
+    border-top: 1px solid #dddddd;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    object-fit: cover;
+    width: 1200px;
+    height: 300px;
+    overflow: hidden;
 }

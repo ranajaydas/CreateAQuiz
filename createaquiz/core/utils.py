@@ -4,6 +4,7 @@ from PIL import Image
 
 
 class ImageResizeUploadS3:
+    """Inheritable class to resize images before uploading to Amazon S3."""
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         max_size = self.max_image_size
@@ -23,7 +24,7 @@ class ImageResizeUploadS3:
             else:
                 if img.mode not in ('L', 'RGB'):
                     img = img.convert('RGB')
-                img.save(in_mem_file, format='JPEG')
+                img.save(in_mem_file, format='JPEG', quality=60)
             img_write = storage.open(self.image.name, 'w+')
             img_write.write(in_mem_file.getvalue())
             img_write.close()
