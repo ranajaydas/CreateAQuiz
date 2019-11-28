@@ -17,6 +17,12 @@ PROFILES = [
         'about': "The Shredder!\nI hate turtles!\nNot to be confused with the office appliance\nEven though I shred stuff\nApril O'Neil is...erm...cool and stuff\nFEAR ME!",
         'image': 'profile_pics/shredder.png',
     },
+    {
+        'name': 'Dexter',
+        'slug': 'dexter',
+        'about': "I am Dexter, boy genius!\nMy annoying sister, Dee Dee, is always getting in the way of my experiments!",
+        'image': 'profile_pics/dexter.png',
+    },
 ]
 
 

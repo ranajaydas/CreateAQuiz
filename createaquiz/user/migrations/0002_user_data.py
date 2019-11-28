@@ -19,6 +19,11 @@ USERS = [
         'password': password,
         'email': 'shredder@paper.com'
     },
+    {
+        'username': 'dexter',
+        'password': password,
+        'email': 'dexter@lab.com'
+    },
 ]
 
 

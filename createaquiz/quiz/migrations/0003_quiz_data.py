@@ -55,6 +55,14 @@ QUIZZES = [
         'tags': ['video-games'],
         'author': 'mojojojo',
     },
+    {
+        'name': 'The Omlette du Fromage Quiz',
+        'slug': 'omlette-du-fromage',
+        'description': "Omlette",
+        'pub_date': date(2019, 11, 4),
+        'tags': ['television', 'dexters-lab'],
+        'author': 'dexter',
+    },
 ]
 
 
