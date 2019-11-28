@@ -71,12 +71,21 @@ QUIZZES = [
         'image': 'quiz_headers/dexter.jpg'
     },
     {
-        'name': 'The Is Donald Trump an Idiot Quiz',
+        'name': 'The "Is Donald Trump an Idiot" Quiz',
         'slug': 'donald-is-an-idiot',
         'description': "The easiest quiz on this website, by far!",
         'pub_date': date(2019, 11, 10),
         'tags': [],
         'author': 'dexter',
+    },
+    {
+        'name': 'The Avengers Quiz',
+        'slug': 'the-avengers-quiz',
+        'description': "You've seen the movies and you've cried at the end of Endgame. But how well do you really know the Avengers?",
+        'pub_date': date(2019, 11, 11),
+        'tags': ['avengers', 'comics'],
+        'author': 'dexter',
+        'image': 'quiz_headers/avengers.jpg'
     },
 ]
 
