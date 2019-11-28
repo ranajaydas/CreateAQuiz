@@ -1,10 +1,9 @@
 from django.conf import settings
 from django.db import models
 from django.shortcuts import reverse
-from core.utils import ImageResizeUploadToS3Model
 
 
-class Profile(ImageResizeUploadToS3Model, models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, default='')
     slug = models.SlugField(max_length=30, unique=True)
