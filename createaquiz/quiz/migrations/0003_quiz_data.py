@@ -44,8 +44,8 @@ QUIZZES = [
         'image': 'quiz_headers/mountains.jpg'
     },
     {
-        'name': 'Food Around The World Quiz',
-        'slug': 'food-around-the-world',
+        'name': 'Food From Around The World Quiz',
+        'slug': 'food-from-around-the-world',
         'description': "I AM THE SHR...\n\nYou thought I was going to say SHREDDER, didn't you?\n\nHere's a quiz to test your knowledge of the different cuisines of the world!",
         'pub_date': date(2019, 11, 1),
         'tags': ['food'],
@@ -69,6 +69,14 @@ QUIZZES = [
         'tags': ['television', 'dexters-lab'],
         'author': 'dexter',
         'image': 'quiz_headers/dexter.jpg'
+    },
+    {
+        'name': 'The Is Donald Trump an Idiot Quiz',
+        'slug': 'donald-is-an-idiot',
+        'description': "The easiest quiz on this website, by far!",
+        'pub_date': date(2019, 11, 10),
+        'tags': [],
+        'author': 'dexter',
     },
 ]
 

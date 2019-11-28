@@ -147,7 +147,7 @@ QUESTIONS = [
         'incorrect_choice_1': 'Japan',
         'incorrect_choice_2': 'China',
         'incorrect_choice_3': 'Korea',
-        'quiz_slug': 'food-around-the-world',
+        'quiz_slug': 'food-from-around-the-world',
     },
     {
         'pk': 17,
@@ -156,7 +156,7 @@ QUESTIONS = [
         'incorrect_choice_1': 'Lyutenitsa',
         'incorrect_choice_2': 'Ajvar',
         'incorrect_choice_3': 'Tavche Gravche',
-        'quiz_slug': 'food-around-the-world',
+        'quiz_slug': 'food-from-around-the-world',
     },
     {
         'pk': 18,
@@ -165,7 +165,7 @@ QUESTIONS = [
         'incorrect_choice_1': 'Cow milk',
         'incorrect_choice_2': 'Buffalo milk',
         'incorrect_choice_3': 'Turtle milk',
-        'quiz_slug': 'food-around-the-world',
+        'quiz_slug': 'food-from-around-the-world',
     },
     {
         'pk': 19,
@@ -174,6 +174,15 @@ QUESTIONS = [
         'incorrect_choice_1': 'Never',
         'incorrect_choice_2': 'Never',
         'incorrect_choice_3': 'Never',
+        'quiz_slug': 'video-games',
+    },
+    {
+        'pk': 26,
+        'question_text': "What is the name of Mario's brother?",
+        'correct_choice': 'Luigi',
+        'incorrect_choice_1': 'Green Mario',
+        'incorrect_choice_2': 'Mario has no brother!',
+        'incorrect_choice_3': 'Mushroom-top',
         'quiz_slug': 'video-games',
     },
     {
@@ -220,6 +229,33 @@ QUESTIONS = [
         'incorrect_choice_2': '2122',
         'incorrect_choice_3': '2222',
         'quiz_slug': 'omelette-du-fromage',
+    },
+    {
+        'pk': 25,
+        'question_text': "Which was the first video game ever made?",
+        'correct_choice': 'Pong',
+        'incorrect_choice_1': 'Pacman',
+        'incorrect_choice_2': 'Space Invaders',
+        'incorrect_choice_3': 'Doom',
+        'quiz_slug': 'video-games',
+    },
+    {
+        'pk': 27,
+        'question_text': "Which was Studio CD Projekt Red's first game?",
+        'correct_choice': 'The Witcher',
+        'incorrect_choice_1': 'Cyberpunk 2077',
+        'incorrect_choice_2': 'Bastion',
+        'incorrect_choice_3': 'Transistor',
+        'quiz_slug': 'video-games',
+    },
+    {
+        'pk': 28,
+        'question_text': "Is Donald Trump an idiot?",
+        'correct_choice': 'Do you even need to ask? Yes!',
+        'incorrect_choice_1': 'No',
+        'incorrect_choice_2': 'Maybe',
+        'incorrect_choice_3': "He's a genius!",
+        'quiz_slug': 'donald-is-an-idiot',
     },
 ]
 
