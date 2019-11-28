@@ -41,6 +41,7 @@ class Quiz(CustomModel, models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.SET_NULL, null=True)   # If user deleted, posts are not deleted
+    header_image = models.ImageField(default=None, upload_to='quiz_headers')
 
     class Meta:
         ordering = ['name']

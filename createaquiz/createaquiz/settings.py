@@ -166,6 +166,7 @@ AWS_STORAGE_BUCKET_NAME = 'django-createaquiz-media'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
+# Option to choose between local and Amazon S3 storage
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Added for Debug Toolbar
