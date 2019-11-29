@@ -1,0 +1,55 @@
+{% extends parent_template|default:'quiz/base_quiz.html' %}
+
+{% block title %}
+    {{ block.super }} - {{ object.name|title }}
+{% endblock title %}
+
+{% block sub_content %}
+    <article class="shadow-sm mb-5 rounded">
+        <div class="media-body content-section">
+            <div class="article-metadata">
+                <div>
+                    <a href="{{ object.get_parent_url }}">Tags ></a>
+                    <a href="">{{ object.name }}</a><br>
+                    {% if perms.quiz.change_tag %}
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ object.get_update_url }}">Update</a>
+                    {% endif %}
+                    {% if perms.quiz.delete_tag %}
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ object.get_delete_url }}">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if object.quiz_set.all %}
+            <p><h4>Quizzes with tag '{{ object.name }}':</h4></p>
+                {% for quiz in object.quiz_set.all %}
+
+                    <article class="media-body content-section">
+                        <div class="article-metadata">
+                            {% if quiz.author %}
+                                <a class="float-left" href="{{ quiz.author.profile.get_absolute_url }}">
+                                    <img class="rounded-circle article-img" src="{{ quiz.author.profile.image.url }}">
+                                </a>
+                            {% endif %}
+                            <h2 class="mb-0"><a class="article-title" href="{{ quiz.get_absolute_url }}">{{ quiz.name }}</a></h2>
+                            <small class="text-muted">Posted on {{ quiz.pub_date|date:"F d, Y" }}
+                                {% if quiz.author %}
+                                    by <a class="mr-2" href="{{ object.author.profile.get_absolute_url }}">{{ quiz.author }}</a>
+                                {% endif %}
+                            </small>
+                            {% if quiz.author == user %}
+                                <div>
+                                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ quiz.get_update_url }}">Update</a>
+                                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ quiz.get_delete_url }}">Delete</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <p class="article-content">{{ quiz.description }}</p>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <p class="mt-2 mb-2">This tag is not related to any content.</p>
+            {% endif %}
+        </div>
+    </article>
+{% endblock sub_content %}

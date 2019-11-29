@@ -1,97 +1,171 @@
 {% load staticfiles %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>
+			{% block title %}
+				Create A Quiz
+				{% if title %}
+					- {{ title }}
+				{% endif %}
+			{% endblock title %}
+		</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-    <title>
-        {% block title %}
-            Create A Quiz
-            {% if title %}
-                - {{ title }}
-            {% endif %}
-        {% endblock title %}
-    </title>
+		<!-- CSS and favico -->
+			<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+			<link rel="SHORTCUT ICON" href="/media/favicon.ico">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		{% block head %}{% endblock %}
 
-    <!-- Custom CSS and favico -->
-    <link rel="SHORTCUT ICON" href="/media/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="{% static 'site/main.css' %}">
-    {% block head %}{% endblock %}
-</head>
-<body>
-    <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-red fixed-top shadow">
-        <div class="container">
-            <a class="navbar-brand mr-4" href="{% url 'quiz_list' %}">Create A Quiz</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-                <!-- Navbar Auto -->
-                <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="{% url 'quiz_list' %}">Quizzes</a>
-                    <a class="nav-item nav-link" href="{% url 'tag_list' %}">Tags</a>
-                </div>
-                <!-- Navbar Right Side -->
-                <div class="navbar-nav">
-                    {% if user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{% url 'quiz_create' %}">New Quiz</a>
-                        {% if perms.tag.add_tag %}
-                            <a class="nav-item nav-link" href="{% url 'tag_create' %}">New Tag</a>
-                        {% endif %}
-                        <a class="nav-item nav-link" href="{% url 'profile_update' %}">Profile</a>
-                        <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                    {% else %}
-                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                    {% endif %}
-                </div>
-          </div>
-        </div>
-      </nav>
-    </header>
+	</head>
+	<body class="is-preload">
 
-    <main role="main" class="container">
-        <div class="row">
-            <div class="col-md-8">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-                {% block content %}
-                    This is default content.
-                {% endblock content %}
+				<!-- Main -->
+					<div id="main">
 
-            </div>
-            <div class="col-md-4 fixed">
-                <div class="content-section">
-                    <h3>Our Sidebar</h3>
-                    <p class='text-muted'>You can put any information here you'd like.
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">Latest Posts</li>
-                            <li class="list-group-item list-group-item-light">Announcements</li>
-                            <li class="list-group-item list-group-item-light">Calendars</li>
-                            <li class="list-group-item list-group-item-light">etc</li>
-                        </ul>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </main>
+						<div class="inner">
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+							<!-- Header -->
+								<header id="header">
+									<a href="{% url 'quiz_list' %}" class="logo"><strong>Create A Quiz</strong> by Ranajay Das</a>
+									<ul class="icons">
+										<li><a href="https://github.com/ranajaydas" class="icon brands fa-github"><span class="label">Github</span></a></li>
+										<li><a href="https://twitter.com/ranajayonroad" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="https://facebook.com/ranajayontheroad" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="https://instagram.com/ranajayontheroad" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Section: Main -->
+								{% if messages %}
+									{% for message in messages %}
+										<div class="alert alert-{{ message.tags }}">
+											{{ message }}
+										</div>
+									{% endfor %}
+								{% endif %}
+
+								{% block content %}
+									This is default content.
+								{% endblock content %}
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="get" action="{% url 'quiz_list' %}">
+										<input type="text" name="q" id="q" placeholder="Search for quizzes..." value="{{ request.GET.q }}"/>
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="{% url 'quiz_list' %}">Quizzes</a></li>
+										<li><a href="{% url 'tag_list' %}">Tags</a></li>
+										{% if user.is_authenticated %}
+											<li>
+												<span class="opener">Create</span>
+												<ul>
+													<li><a href="{% url 'quiz_create' %}">New Quiz</a></li>
+													{% if perms.tag.add_tag %}
+														<li><a href="{% url 'tag_create' %}">New Tag</a></li>
+													{% endif %}
+												</ul>
+											</li>
+											<li><a href="{% url 'profile_update' %}">Profile</a></li>
+											<li><a href="{% url 'logout' %}">Logout</a></li>
+										{% else %}
+											<li><a href="{% url 'login' %}">Login</a></li>
+											<li><a href="{% url 'register' %}">Register</a></li>
+										{% endif %}
+									</ul>
+								</nav>
+
+							<!-- Section: Tech Used -->
+								<section>
+									<header class="major">
+										<h2>Technology Used</h2>
+									</header>
+									<p>This website was made using:</p>
+									<ul class="contact">
+										<li class="icon brands fa-python">Django</a></li>
+										<li class="icon brands fa-html5">Free theme from HTML5 UP</li>
+									</ul>
+								</section>
+
+							<!-- Section: Shameless Self Publicity -->
+								<section>
+									<header class="major">
+										<h2>More Websites Made by Me</h2>
+									</header>
+									<p>This website was made using:</p>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="{% static 'images/pic07.jpg' %}" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="{% static 'images/pic08.jpg' %}" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="{% static 'images/pic09.jpg' %}" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section: Contact -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>Hi! I am Ranajay Das from Ranajay On The Road. This website was created while I was traveling through Lake Ohrid, North Macedonia. </p>
+									<ul class="contact">
+										<li class="icon solid fa-blog"><a href="https://ranajayontheroad.com">Ranajay On The Road</a></li>
+										<li class="icon solid fa-home">Somewhere On The Road,<br>Earth</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Create A Quiz. All rights reserved.<br>Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
 </html>

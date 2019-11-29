@@ -1,14 +1,13 @@
-<div class="content-section">
+<section>
+    <header class="main">
+        <h1>Delete {{ obj_type }}</h1>
+    </header>
     <form action="{{ action }}" method="{{ method|default:'post' }}">
         {% csrf_token %}
-
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Delete {{ obj_type }}</legend>
-            <h3>Are you sure you want to delete the {{ obj_type }} titled "{{ obj_title }}"?</h3>
-        </fieldset>
-        <div class="form-group">
-            <a class="btn btn-outline-secondary" href="{{ object.get_absolute_url }}">Cancel</a>
-            <button class="btn btn-outline-danger" type="submit">Delete {{ obj_type }}</button>
+        <h3>Are you sure you want to delete the {{ obj_type }} titled "{{ obj_title }}"?</h3>
+        <div>
+            <a class="button" href="{{ object.get_absolute_url }}">Cancel</a>
+            <button class="primary" type="submit">Delete {{ obj_type }}</button>
         </div>
     </form>
-</div>
+</section>

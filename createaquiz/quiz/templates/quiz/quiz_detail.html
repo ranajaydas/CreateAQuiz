@@ -5,69 +5,71 @@
 {% endblock title %}
 
 {% block sub_content %}
-    <article class="shadow-sm mb-5 rounded">
+
+    <section>
+        <header class="main">
+            <h1><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h1>
+        </header>
         {% if object.image %}
-            <a href="{{ object.get_absolute_url }}">
-                <img class="img-fluid header-img-crop" src="{{ object.image.url }}">
-            </a>
+            <span class="image main"><a href="#metadata"><img src="{{ object.image.url }}" alt="{{ object.name }}"></a></span>
         {% endif %}
-        <div class="media-body content-section">
-            <div class="article-metadata">
-                {% if object.author %}
-                    <a class="float-left" href="{{ object.author.profile.get_absolute_url }}">
-                        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
-                    </a>
-                {% endif %}
-                <h2 class="mb-0"><a class="article-title" href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
-                <small class="text-muted">Posted on {{ object.pub_date|date:"F d, Y" }}
-                    {% if object.author %}
-                        by <a class="mr-2" href="{{ object.author.profile.get_absolute_url }}">{{ object.author }}</a>
-                    {% endif %}
-                </small>
-                {% if object.author == user %}
-                    <div>
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ object.get_update_url }}">Update</a>
-                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ object.get_delete_url }}">Delete</a>
-                    </div>
-                {% endif %}
-            </div>
-            <p class="article-content">{{ object.description|linebreaks }}
-                <a class="btn btn-secondary btn-block mt-1 mb-1" href="{{ object.get_start_url }}">Start Quiz!</a>
-            </p>
-            {% if object.author == user %}
-            <hr/>
-                <h3>Edit Quiz:</h3>
-                <a class="btn btn-outline-primary btn-sm mt-2 mb-2" href="{{ object.create_question_url }}">Add New Question</a>
-                {% if object.question_set.all %}
-                    <ol>
-                        {% for question in object.question_set.all %}
-                            <li>
-                                <strong>{{ question.question_text }}</strong>
-                                <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{{ question.get_update_url }}">Update</a>
-                                <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{{ question.get_delete_url }}">Delete</a>
-                            </li>
-                                <ol>
-                                {% for choice in question.get_random_choices %}
-                                    {% if choice == question.correct_choice %}
-                                        <li><strong>{{ choice }}</strong></li>
-                                    {% else %}
-                                        <li>{{ choice }}</li>
-                                    {% endif %}
-                                {% endfor %}
-                                </ol>
-                        {% endfor %}
-                    </ol>
-                {% endif %}
+        <div id="metadata">
+            {% if object.author %}
+                <a href="{{ object.author.profile.get_absolute_url }}">
+                    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+                </a>
             {% endif %}
-            <hr/>
+            <h3>
+                Posted on {{ object.pub_date|date:"F d, Y" }}
+                {% if object.author %}
+                    by <a href="{{ object.author.profile.get_absolute_url }}">{{ object.author }}</a>
+                {% endif %}
+            </h3>
             {% if object.tags.all %}
-                <ul class="list-inline">
-                    <li class="list-inline-item">Tags:</li>
+                <ul class="icon solid fa-tags tag">
                     {% for tag in object.tags.all %}
-                        <li class="list-inline-item"><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+                        <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
                     {% endfor %}
                 </ul>
             {% endif %}
+            {% if object.author == user %}
+                <div>
+                    <a class="icon solid fa-pencil-alt button" href="{{ object.get_update_url }}">Update</a>
+                    <a class="icon solid fa-trash-alt button" href="{{ object.get_delete_url }}">Delete</a>
+                </div>
+            {% endif %}
         </div>
-    </article>
+        <p>
+            {{ object.description|linebreaks }}
+            <a class="button primary fit" href="{{ object.get_start_url }}">Start Quiz!</a>
+        </p>
+        {% if object.author == user %}
+            <hr class="major" />
+            <h3>Edit Quiz:</h3>
+            <ul class="actions">
+                <li><a class="button primary" href="{{ object.create_question_url }}">Add New Question</a></li>
+            </ul>
+            {% if object.question_set.all %}
+                <ol class="actions">
+                    {% for question in object.question_set.all %}
+                        <li>
+                            <strong>{{ question.question_text }}</strong>
+                            <a class="icon solid fa-pencil-alt button small" href="{{ question.get_update_url }}">Update</a>
+                            <a class="icon solid fa-trash-alt button small" href="{{ question.get_delete_url }}">Delete</a>
+                        </li>
+                        <ol>
+                            {% for choice in question.get_random_choices %}
+                                {% if choice == question.correct_choice %}
+                                    <li><strong>{{ choice }}</strong></li>
+                                {% else %}
+                                    <li>{{ choice }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ol>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        {% endif %}
+    </section>
+
 {% endblock sub_content %}

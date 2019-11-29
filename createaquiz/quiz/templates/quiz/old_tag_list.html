@@ -1,0 +1,22 @@
+{% extends parent_template|default:'quiz/base_quiz.html' %}
+
+{% block title %}
+    {{ block.super }} - Tag List
+{% endblock title %}
+
+{% block sub_content %}
+    <article class="media content-section shadow-sm mb-5 rounded">
+        <div class="media-body">
+            <h2>Tags</h2>
+            <div class="mt-3 mb-3">
+                <ul>
+                    {% for object in object_list %}
+                        <li class="mt-1 mb-1"><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+                    {% empty %}
+                        <li><em>There are currently no Tags available.</em></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </article>
+{% endblock sub_content %}

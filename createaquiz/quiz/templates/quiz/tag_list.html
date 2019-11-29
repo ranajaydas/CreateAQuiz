@@ -5,18 +5,29 @@
 {% endblock title %}
 
 {% block sub_content %}
-    <article class="media content-section shadow-sm mb-5 rounded">
+
+    <section>
+        <header class="major">
+            <h2>
+                <a class="icon solid fa-tags" href="{% url 'tag_list' %}"> Tags</a>
+            </h2>
+        </header>
         <div class="media-body">
-            <h2>Tags</h2>
-            <div class="mt-3 mb-3">
+            <article>
+                {% if perms.quiz.add_tag %}
+                    <ul class="actions">
+                        <li><a class="button primary" href="{% url 'tag_create' %}">Add New Tag</a></li>
+                    </ul>
+                {% endif %}
                 <ul>
                     {% for object in object_list %}
-                        <li class="mt-1 mb-1"><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+                        <li><a href="{{ object.get_absolute_url }}">{{ object.name }} ({{ object.quiz_set.count }})</a></li>
                     {% empty %}
                         <li><em>There are currently no Tags available.</em></li>
                     {% endfor %}
                 </ul>
-            </div>
+            </article>
         </div>
-    </article>
+    </section>
+
 {% endblock sub_content %}

@@ -12,6 +12,11 @@ from .utils import PageLinksMixin, UserIsAuthorMixin, DeleteMixin, CreateUpdateM
 
 class TagListView(ListView):
     model = Tag
+    queryset = (
+        Tag.objects
+        .prefetch_related('quiz_set',
+                          )
+    )
 
 
 class TagDetailView(DetailView):
@@ -51,7 +56,7 @@ class TagDeleteView(DeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, Su
 
 class QuizListView(PageLinksMixin, ListView):
     model = Quiz
-    paginate_by = 5
+    paginate_by = 6
     ordering = ['-pub_date', '-id']             # Orders the posts by newest to oldest by pub-date and id
     search_kwarg = 'q'
 

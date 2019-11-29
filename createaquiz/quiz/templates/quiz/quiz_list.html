@@ -1,55 +1,52 @@
 {% extends parent_template|default:'quiz/base_quiz.html' %}
+{% load static %}
 
 {% block sub_content %}
-    <section id="search" class="mt-0 mb-4">
-        <form method="get" class="input-group">
-            <input class="form-control" type="text" name="q" id="q" placeholder="Search for quizzes..." value="{{ request.GET.q }}"/>
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit">Search</button>
-                <a href="{% url 'quiz_list' %}" class="btn btn-outline-secondary">Clear</a>
-            </div>
-        </form>
-    </section>
 
-    {% for object in object_list %}
-        <article class="shadow-sm mb-5 rounded">
-            {% if object.image %}
-                <a href="{{ object.get_absolute_url }}">
-                    <img class="img-fluid header-img-crop" src="{{ object.image.url }}">
-                </a>
-            {% endif %}
-            <div class="media-body content-section">
-                <div class="article-metadata mb-4">
-                    {% if object.author %}
-                        <a class="float-left" href="{{ object.author.profile.get_absolute_url }}">
-                            <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
-                        </a>
-                    {% endif %}
-                    <h2 class="mb-0"><a class="article-title" href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
-                    <small class="text-muted">Posted on {{ object.pub_date|date:"F d, Y" }}
-                        {% if object.author %}
-                            by <a class="mr-2" href="{{ object.author.profile.get_absolute_url }}">{{ object.author }}</a>
-                        {% endif %}
-                    </small>
-                    {% if object.author == user %}
-                        <div>
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ object.get_update_url }}">Update</a>
-                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ object.get_delete_url }}">Delete</a>
-                        </div>
-                    {% endif %}
+    {% if 'q' not in request.GET and 'page' not in request.GET  %}
+        <!-- Banner -->
+            <section id="banner">
+                <div class="content">
+                    <header>
+                        <h1>Welcome to Create A Quiz!</h1>
+                        <p>A site for you to create and enjoy user-created quizzes</p>
+                    </header>
+                    <p>Check out our latest awesome quizzes below. If you'd like to create your own quiz and share it with your friends, just <a href="{% url 'register' %}">sign up</a> for a free account and get started. Creating and solving quizzes has never been so easy!</p>
                 </div>
-                <p class="article-content">{{ object.description }}</p>
-                {% if object.tags.all %}
-                    <ul class="list-inline">
-                        <li class="list-inline-item">Tags:</li>
-                        {% for tag in object.tags.all %}
-                            <li class="list-inline-item"><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+                <span class="image object">
+                    <img src="{% static 'images/woman-phone-1.jpg' %}" alt="Woman playing CreateAQuiz on her phone" />
+                </span>
+            </section>
+    {% endif %}
+
+    <!-- Section: Quizzes -->
+        <section>
+            <header class="major">
+                <h2><a href="{% url 'quiz_list' %}">Latest Quizzes</a></h2>
+            </header>
+            <div class="posts">
+                {% for object in object_list %}
+                    <article>
+                        {% if object.image %}
+                            <a href="{{ object.get_absolute_url }}" class="image"><img src="{{ object.image.url }}" alt="{{ object.description }}"></a>
+                        {% endif %}
+                        <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
+                        <p>{{ object.description }}</p>
+                        {% if object.tags.all %}
+                            <ul class="icon solid fa-tags tag">
+                                {% for tag in object.tags.all %}
+                                    <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <ul class="actions">
+                            <li><a href="{{ object.get_absolute_url }}" class="button">More</a></li>
+                        </ul>
+                    </article>
+                {% empty %}
+                    <article><em>No Quizzes found.</em></article>
+                {% endfor %}
             </div>
-        </article>
-    {% empty %}
-        <li class="mb-4"><em>No Quizzes found.</em></li>
-    {% endfor %}
+        </section>
+
 {% endblock sub_content %}

@@ -5,51 +5,42 @@
 {% endblock title %}
 
 {% block sub_content %}
-    <article class="shadow-sm mb-5 rounded">
-        <div class="media-body content-section">
-            <div class="article-metadata">
-                <div>
-                    <a href="{{ object.get_parent_url }}">Tags ></a>
-                    <a href="">{{ object.name }}</a><br>
-                    {% if perms.quiz.change_tag %}
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ object.get_update_url }}">Update</a>
-                    {% endif %}
-                    {% if perms.quiz.delete_tag %}
-                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ object.get_delete_url }}">Delete</a>
-                    {% endif %}
-                </div>
-            </div>
+    <section>
+        <header class="major">
+            <h2>
+                <a class="icon solid fa-tags" href="{% url 'tag_list' %}"> Tags ></a>
+                <a class="icon solid fa-tag" href=""> {{ object.name }}</a>
+            </h2>
+        </header>
 
+        <ul class="actions">
+            {% if perms.quiz.change_tag %}
+                <li><a class="icon solid fa-pencil-alt button" href="{{ object.get_update_url }}">Update Tag</a></li>
+            {% endif %}
+            {% if perms.quiz.delete_tag %}
+                <li><a class="icon solid fa-trash-alt button" href="{{ object.get_delete_url }}">Delete Tag</a></li>
+            {% endif %}
+        </ul>
+
+        <div class="posts">
             {% if object.quiz_set.all %}
-            <p><h4>Quizzes with tag '{{ object.name }}':</h4></p>
                 {% for quiz in object.quiz_set.all %}
-
-                    <article class="media-body content-section">
-                        <div class="article-metadata">
-                            {% if quiz.author %}
-                                <a class="float-left" href="{{ quiz.author.profile.get_absolute_url }}">
-                                    <img class="rounded-circle article-img" src="{{ quiz.author.profile.image.url }}">
-                                </a>
-                            {% endif %}
-                            <h2 class="mb-0"><a class="article-title" href="{{ quiz.get_absolute_url }}">{{ quiz.name }}</a></h2>
-                            <small class="text-muted">Posted on {{ quiz.pub_date|date:"F d, Y" }}
-                                {% if quiz.author %}
-                                    by <a class="mr-2" href="{{ object.author.profile.get_absolute_url }}">{{ quiz.author }}</a>
-                                {% endif %}
-                            </small>
-                            {% if quiz.author == user %}
-                                <div>
-                                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ quiz.get_update_url }}">Update</a>
-                                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ quiz.get_delete_url }}">Delete</a>
-                                </div>
-                            {% endif %}
-                        </div>
-                        <p class="article-content">{{ quiz.description }}</p>
+                    <article>
+                        {% if quiz.image %}
+                            <a href="{{ quiz.get_absolute_url }}" class="image"><img src="{{ quiz.image.url }}" alt="{{ quiz.description }}" /></a>
+                        {% endif %}
+                        <h3><a href="{{ quiz.get_absolute_url }}">{{ quiz.name }}</a></h3>
+                        <p>{{ quiz.description }}</p>
+                        <ul class="actions">
+                            <li><a href="{{ quiz.get_absolute_url }}" class="button">More</a></li>
+                        </ul>
                     </article>
                 {% endfor %}
             {% else %}
-                <p class="mt-2 mb-2">This tag is not related to any content.</p>
+                <article>
+                    <p>This tag is not related to any content.</p>
+                </article>
             {% endif %}
         </div>
-    </article>
+    </section>
 {% endblock sub_content %}
