@@ -302,6 +302,15 @@ QUESTIONS = [
         'incorrect_choice_3': 'Mark Ruffalo',
         'quiz_slug': 'the-avengers-quiz',
     },
+    {
+        'pk': 35,
+        'question_text': "What is the name of Thor's hammer?",
+        'correct_choice': 'Mjolnir',
+        'incorrect_choice_1': 'Megingjord',
+        'incorrect_choice_2': 'Uru',
+        'incorrect_choice_3': 'Jarnbjorn',
+        'quiz_slug': 'the-avengers-quiz',
+    },
 ]
 
 
