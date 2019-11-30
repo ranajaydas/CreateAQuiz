@@ -28,7 +28,7 @@
                 {% for object in object_list %}
                     <article>
                         {% if object.image %}
-                            <a href="{{ object.get_absolute_url }}" class="image"><img src="{{ object.image.url }}" alt="{{ object.description }}"></a>
+                            <a href="{{ object.get_absolute_url }}" class="image"><img src="{{ object.image.url }}" alt="{{ object.description }}" loading="lazy"></a>
                         {% endif %}
                         <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
                         <p>{{ object.description }}</p>
