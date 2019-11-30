@@ -12,10 +12,12 @@ from .utils import PageLinksMixin, UserIsAuthorMixin, DeleteMixin, CreateUpdateM
 
 class TagListView(ListView):
     model = Tag
+
+    # Optimization to reduce number of database calls
     queryset = (
-        Tag.objects
-        .prefetch_related('quiz_set',
-                          )
+        Tag.objects.prefetch_related(
+            'quiz_set',
+        )
     )
 
 
@@ -24,10 +26,10 @@ class TagDetailView(DetailView):
 
     # Optimization to reduce number of database calls
     queryset = (
-        Tag.objects
-        .prefetch_related('quiz_set',
-                          'quiz_set__author',
-                          )
+        Tag.objects.prefetch_related(
+            'quiz_set',
+            'quiz_set__author',
+        )
     )
 
 
@@ -70,7 +72,8 @@ class QuizListView(PageLinksMixin, ListView):
                     Q(name__contains=search_term)
                     | Q(description__icontains=search_term)
                     | Q(slug__icontains=search_term)
-                )
+                    | Q(tags__slug__icontains=search_term)
+                ).distinct()
         # Optimization to reduce number of database calls
         return query_set.select_related('author').prefetch_related('tags')
 
@@ -87,6 +90,7 @@ class QuizDetailView(DetailView):
 
 
 def quiz_start_view(request, slug):
+    # TODO: Change this to a form and clean the data. Show questions one at a time.
     quiz = get_object_or_404(Quiz, slug__iexact=slug)
     quiz_score = 0
     quiz_total_questions = quiz.question_set.count()
@@ -95,7 +99,7 @@ def quiz_start_view(request, slug):
     if request.method == 'POST':
         form_posted = True
         for question in quiz.question_set.all():
-            user_answer = request.POST.get(question.question_text)
+            user_answer = request.POST.get(question.question_text).cleaned_data()
             if user_answer == question.correct_choice:
                 quiz_score += 1
 
