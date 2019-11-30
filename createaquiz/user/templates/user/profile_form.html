@@ -1,6 +1,8 @@
 {% extends parent_template|default:'user/profile_header.html' %}
 
 {% block below_header %}
-    {% load display_form %}
-    {% form profile.get_update_url 'Update Profile' enc_type='multipart/form-data' %}
+    <div class="col-8 col-12-medium">
+        {% load display_form %}
+        {% form profile.get_update_url 'Update Profile' enc_type='multipart/form-data' %}
+    </div>
 {% endblock below_header %}

@@ -1,8 +1,8 @@
 {% extends parent_template|default:'user/profile_header.html' %}
 
 {% block below_header %}
-    <section>
+    <div class="col-8 col-12-medium">
         <h2>About Me</h2>
         {{ profile.about|default:"No Profile"|linebreaks }}
-    </section>
+    </div>
 {% endblock below_header %}

@@ -3633,10 +3633,11 @@ ul.tag li:last-child:after {
 }
 
 .account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+    float: left;
 }
 
 .article-img {
