@@ -19,6 +19,7 @@ TAGS = (
     ('food', 'food'),
     ('video games', 'video-games'),
     ("dexters lab", 'dexters-lab'),
+    ("books", 'books'),
 )
 
 

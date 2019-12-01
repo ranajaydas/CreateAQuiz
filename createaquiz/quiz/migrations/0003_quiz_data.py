@@ -90,6 +90,15 @@ QUIZZES = [
         'author': 'dexter',
         'image': 'quiz_headers/avengers.jpg',
     },
+    {
+        'name': 'The Book Lovers Quiz',
+        'slug': 'the-book-lovers-quiz',
+        'description': "I, Shredder, am a bibliophile and an avid reader. As of 2019, I have implemented a strict screening policy to admit only ardent book lovers into my specialized troop of foot soldiers, known as the Novel Ninjas.\nDo you have what it takes to join our ranks? How well do YOU know your books?\n\nP.S: I WILL NOT TOLERATE PAPER SHREDDING JOKES!",
+        'pub_date': date(2019, 11, 15),
+        'tags': ['books', ],
+        'author': 'shredder',
+        'image': 'quiz_headers/books.jpg',
+    },
 ]
 
 
