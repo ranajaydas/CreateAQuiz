@@ -22,7 +22,7 @@
     <!-- Section: Quizzes -->
         <section>
             <header class="major">
-                <h2><a href="{% url 'quiz_list' %}">Latest Quizzes</a></h2>
+                <h2><a href="{% url 'quiz_list' %}" id="latest">Latest Quizzes</a></h2>
             </header>
             <div class="posts">
                 {% for object in object_list %}

@@ -1,5 +1,6 @@
 import io
 from django.core.files.storage import default_storage as storage
+from django.template.defaulttags import register
 from PIL import Image
 
 
@@ -30,3 +31,8 @@ class ImageResizeUploadS3:
                 img_write = storage.open(self.image.name, 'w+')
                 img_write.write(in_mem_file.getvalue())
                 img_write.close()
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

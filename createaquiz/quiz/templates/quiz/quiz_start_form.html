@@ -10,45 +10,58 @@
             padding-bottom: 10px;
             padding-top: 10px;
         }
+        .incorrect-choice {
+            font-weight: bold;
+            color: #f56a6a;
+            text-decoration: line-through;
+        }
+        .correct-choice {
+            font-weight: bold;
+            background-color: #ccffcc;
+            padding: 5px;
+            border-radius: 5px;
+        }
     </style>
 
     <section>
         <header class="main">
-            <h1>{{ object.name }}</h1>
+            <h1><a href=" {{ object.get_absolute_url }} ">{{ object.name }}</a></h1>
         </header>
-
         {% if form_posted %}
             <div>
                 <h2>You scored {{ quiz_score }} out of {{ quiz_total_questions }}!</h2>
                 <a href="{{ quiz_start }}" class="button primary">Try Again?</a>
-                <a href="{% url 'quiz_list' %}" class="button">Try Our Other Quizzes!</a>
+                <a href="{% url 'quiz_list' %}#latest" class="button">Try Our Other Quizzes!</a>
             </div>
         {% endif %}
-
         <form action="{{ quiz_start }}" method="post">
             {% csrf_token %}
-                {% if object.question_set.all %}
-                    <ol>
-                        {% for question in object.question_set.all %}
-                            <li>
-                                <strong>{{ question.question_text }}</strong>
-                            </li>
-                            {% for choice in question.get_random_choices %}
-                                <input type="radio" name="{{ question.question_text }}" value="{{ choice }}" id="{{ question.question_text }} {{ forloop.counter0 }} {{ choice }}">
-                                    {% if form_posted %}
-                                            {% if choice == question.correct_choice %}
-                                                <label><strong>{{ choice }}</strong></label><br>
-                                            {% else %}
-                                                <label>{{ choice }}</label><br>
-                                            {% endif %}
+            {% if questions %}
+                <ol>
+                    {% for question in questions %}
+                        <li>
+                            <strong>{{ question.question_text }}</strong>
+                        </li>
+                        {% for choice in question.get_random_choices %}
+                            <input type="radio" name="{{ question.question_text }}" value="{{ choice }}" id="{{ question.question_text }} {{ forloop.counter0 }} {{ choice }}">
+                                {% if form_posted %}
+                                    {% if choice == question.correct_choice %}
+                                        <label><span class="correct-choice">{{ choice }}</span></label><br>
+                                    {% elif choice == user_answer_dict|get_item:question.question_text %}
+                                        <label><span class="incorrect-choice">{{ choice }}</span></label><br>
+                                    {% elif not user_answer_dict|get_item:question.question_text %}
+                                        <label><span class="incorrect-choice">{{ choice }}</span></label><br>
                                     {% else %}
-                                        <label for="{{ question.question_text }} {{ forloop.counter0 }} {{ choice }}">{{ choice }}</label><br>
+                                        <label>{{ choice }}</label><br>
                                     {% endif %}
-                                </input>
-                            {% endfor %}
+                                {% else %}
+                                    <label for="{{ question.question_text }} {{ forloop.counter0 }} {{ choice }}">{{ choice }}</label><br>
+                                {% endif %}
+                            </input>
                         {% endfor %}
-                    </ol>
-                {% endif %}
+                    {% endfor %}
+                </ol>
+            {% endif %}
 
             <div>
                 {% if not form_posted %}

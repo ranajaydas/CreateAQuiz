@@ -86,28 +86,33 @@ class QuizDetailView(DetailView):
         Quiz.objects
         .select_related('author')
         .prefetch_related('tags')
+        .prefetch_related('question_set')
     )
 
 
 def quiz_start_view(request, slug):
-    # TODO: Change this to a form and clean the data. Show questions one at a time.
     quiz = get_object_or_404(Quiz, slug__iexact=slug)
     quiz_score = 0
     quiz_total_questions = quiz.question_set.count()
     form_posted = False     # Checks if the form has been posted by the user
+    user_answer_dict = {}
+    questions = quiz.question_set.all()
 
     if request.method == 'POST':
         form_posted = True
-        for question in quiz.question_set.all():
+        for question in questions:
             user_answer = request.POST.get(question.question_text)
+            user_answer_dict[question.question_text] = user_answer
             if user_answer == question.correct_choice:
                 quiz_score += 1
 
     context = {
         'form_posted': form_posted,
+        'questions': questions,
         'object': quiz,
         'quiz_score': quiz_score,
         'quiz_total_questions': quiz_total_questions,
+        'user_answer_dict': user_answer_dict,
     }
     return render(request, 'quiz/quiz_start_form.html', context)
 
