@@ -30,7 +30,7 @@
                             <a href="{{ quiz.get_absolute_url }}" class="image"><img src="{{ quiz.image.url }}" alt="{{ quiz.description }}" /></a>
                         {% endif %}
                         <h3><a href="{{ quiz.get_absolute_url }}">{{ quiz.name }}</a></h3>
-                        <p>{{ quiz.description }}</p>
+                        <p>{{ quiz.description|truncatewords:20 }}</p>
                         <ul class="actions">
                             <li><a href="{{ quiz.get_absolute_url }}" class="button">More</a></li>
                         </ul>

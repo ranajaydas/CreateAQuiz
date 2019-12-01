@@ -31,7 +31,7 @@
                             <a href="{{ object.get_absolute_url }}" class="image"><img src="{{ object.image.url }}" alt="{{ object.description }}" loading="lazy"></a>
                         {% endif %}
                         <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
-                        <p>{{ object.description }}</p>
+                        <p>{{ object.description|truncatewords:20 }}</p>
                         {% if object.tags.all %}
                             <ul class="icon solid fa-tags tag">
                                 {% for tag in object.tags.all %}
