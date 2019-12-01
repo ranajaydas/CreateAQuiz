@@ -28,7 +28,7 @@
         </header>
         {% if form_posted %}
             <div>
-                <h2 class="red-text">You scored {{ quiz_score }} out of {{ quiz_total_questions }}!</h2>
+                <h2 class="red-text">You scored {{ quiz_score_percent }}% ({{ quiz_score }} out of {{ quiz_total_questions }}) !</h2>
                 <a href="{{ quiz_start }}" class="button primary">Try Again?</a>
                 <a href="{% url 'quiz_list' %}#latest" class="button">Try Our Other Quizzes!</a>
             </div>

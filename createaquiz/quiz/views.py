@@ -97,6 +97,7 @@ def quiz_start_view(request, slug):
     form_posted = False     # Checks if the form has been posted by the user
     user_answer_dict = {}
     questions = quiz.question_set.all()
+    quiz_score_percent = 0
 
     if request.method == 'POST':
         form_posted = True
@@ -105,12 +106,14 @@ def quiz_start_view(request, slug):
             user_answer_dict[question.question_text] = user_answer
             if user_answer == question.correct_choice:
                 quiz_score += 1
+        quiz_score_percent = int(quiz_score/quiz_total_questions*100)
 
     context = {
         'form_posted': form_posted,
         'questions': questions,
         'object': quiz,
         'quiz_score': quiz_score,
+        'quiz_score_percent': quiz_score_percent,
         'quiz_total_questions': quiz_total_questions,
         'user_answer_dict': user_answer_dict,
     }
