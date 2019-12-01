@@ -10,12 +10,11 @@
             padding-bottom: 10px;
             padding-top: 10px;
         }
-        .incorrect-choice {
+        .red-text {
             font-weight: bold;
             color: #f56a6a;
-            text-decoration: line-through;
         }
-        .correct-choice {
+        .green-text {
             font-weight: bold;
             background-color: #ccffcc;
             padding: 5px;
@@ -29,7 +28,7 @@
         </header>
         {% if form_posted %}
             <div>
-                <h2>You scored {{ quiz_score }} out of {{ quiz_total_questions }}!</h2>
+                <h2 class="red-text">You scored {{ quiz_score }} out of {{ quiz_total_questions }}!</h2>
                 <a href="{{ quiz_start }}" class="button primary">Try Again?</a>
                 <a href="{% url 'quiz_list' %}#latest" class="button">Try Our Other Quizzes!</a>
             </div>
@@ -45,12 +44,25 @@
                         {% for choice in question.get_random_choices %}
                             <input type="radio" name="{{ question.question_text }}" value="{{ choice }}" id="{{ question.question_text }} {{ forloop.counter0 }} {{ choice }}">
                                 {% if form_posted %}
-                                    {% if choice == question.correct_choice %}
-                                        <label><span class="correct-choice">{{ choice }}</span></label><br>
+                                    {% if choice == question.correct_choice and choice == user_answer_dict|get_item:question.question_text %}
+                                        <label>
+                                            <span class="green-text">{{ choice }}</span>
+                                            <span class="icon solid fa-check"></span>
+                                        </label><br>
+                                    {% elif choice == question.correct_choice %}
+                                        <label>
+                                            <span class="green-text">{{ choice }}</span>
+                                        </label><br>
                                     {% elif choice == user_answer_dict|get_item:question.question_text %}
-                                        <label><span class="incorrect-choice">{{ choice }}</span></label><br>
+                                        <label>
+                                            <span class="red-text"><strike>{{ choice }}</strike></span>
+                                            <span class="icon solid fa-times"></span>
+                                        </label><br>
                                     {% elif not user_answer_dict|get_item:question.question_text %}
-                                        <label><span class="incorrect-choice">{{ choice }}</span></label><br>
+                                        <label>
+                                            <span class="red-text"><strike>{{ choice }}</strike></span>
+                                            <span class="icon solid fa-times"></span>
+                                        </label><br>
                                     {% else %}
                                         <label>{{ choice }}</label><br>
                                     {% endif %}
