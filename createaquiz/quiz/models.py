@@ -79,6 +79,9 @@ class Question(CustomModel, models.Model):
     incorrect_choice_3 = models.CharField(max_length=63)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 
+    class Meta:
+        unique_together = ('question_text', 'quiz')     # The same quiz can't have the same questions
+
     def __str__(self):
         return self.question_text
 
