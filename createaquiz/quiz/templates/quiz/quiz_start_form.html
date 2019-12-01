@@ -5,51 +5,58 @@
 {% endblock title %}
 
 {% block sub_content %}
-    <div class="content-section shadow-sm mb-5 rounded">
+    <style>
+        li {
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+    </style>
+
+    <section>
+        <header class="main">
+            <h1>{{ object.name }}</h1>
+        </header>
+
+        {% if form_posted %}
+            <div>
+                <h2>You scored {{ quiz_score }} out of {{ quiz_total_questions }}!</h2>
+                <a href="{{ quiz_start }}" class="button primary">Try Again?</a>
+                <a href="{% url 'quiz_list' %}" class="button">Try Our Other Quizzes!</a>
+            </div>
+        {% endif %}
+
         <form action="{{ quiz_start }}" method="post">
             {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4"><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></legend>
                 {% if object.question_set.all %}
                     <ol>
                         {% for question in object.question_set.all %}
-                            <li class="mt-1 mb-1">
-                                <strong>{{ question.question_text }}</strong><br>
+                            <li>
+                                <strong>{{ question.question_text }}</strong>
                             </li>
                             {% for choice in question.get_random_choices %}
-                                <input class="mt-2 mb-2" type="radio" name="{{ question.question_text }}" value="{{ choice }}">
-                                    {% if choice == question.correct_choice and form_posted == True %}
-                                        <strong>{{ choice }}</strong>
+                                <input type="radio" name="{{ question.question_text }}" value="{{ choice }}" id="{{ question.question_text }} {{ forloop.counter0 }} {{ choice }}">
+                                    {% if form_posted %}
+                                            {% if choice == question.correct_choice %}
+                                                <label><strong>{{ choice }}</strong></label><br>
+                                            {% else %}
+                                                <label>{{ choice }}</label><br>
+                                            {% endif %}
                                     {% else %}
-                                        {{ choice }}
+                                        <label for="{{ question.question_text }} {{ forloop.counter0 }} {{ choice }}">{{ choice }}</label><br>
                                     {% endif %}
-                                </input><br>
+                                </input>
                             {% endfor %}
                         {% endfor %}
                     </ol>
                 {% endif %}
-            </fieldset>
 
-            <div class="form-group">
-                {% if form_posted %}
-                    <h3>You scored {{ quiz_score }} out of {{ quiz_total_questions }}!</h3>
-                    <a href="{{ quiz_start }}" class="btn btn-outline-primary mt-1 mb-1">Try Again?</a>
-                    <a href="{% url 'quiz_list' %}" class="btn btn-outline-info mt-1 mb-1">Try Our Other Quizzes!</a>
-                {% else %}
-                    <button class="btn btn-outline-primary" type="submit">Submit</button>
-                    <button class="btn btn-outline-info" type="reset">Reset</button>
+            <div>
+                {% if not form_posted %}
+                    <button class="primary" type="submit">Submit</button>
+                    <button type="reset">Reset</button>
                 {% endif %}
             </div>
         </form>
-        {% if object.tags.all %}
-            <hr/>
-            <ul class="list-inline">
-                <li class="list-inline-item">Tags:</li>
-                {% for tag in object.tags.all %}
-                    <li class="list-inline-item"><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
+    </section>
 {% endblock sub_content %}
 
