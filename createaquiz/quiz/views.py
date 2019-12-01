@@ -99,7 +99,7 @@ def quiz_start_view(request, slug):
     if request.method == 'POST':
         form_posted = True
         for question in quiz.question_set.all():
-            user_answer = request.POST.get(question.question_text).cleaned_data()
+            user_answer = request.POST.get(question.question_text)
             if user_answer == question.correct_choice:
                 quiz_score += 1
 
