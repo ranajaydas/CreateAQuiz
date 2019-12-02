@@ -8,8 +8,8 @@ class CreateUpdateMixin:
     """Class inherited by Create and Update Views."""
     template_name = 'quiz/base_quiz_form.html'
 
-    """Simple mixin to pass context data to Create and Update views."""
     def get_context_data(self, **kwargs):
+        """Add extra context to Views."""
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.page_title
         return context
@@ -50,6 +50,7 @@ class UserIsAuthorMixin(UserPassesTestMixin):
 
 
 class PageLinksMixin:
+    """Mixin for Pagination and Search results."""
     page_kwarg = 'page'
     search_kwarg = 'q'
 
@@ -73,13 +74,12 @@ class PageLinksMixin:
         return None
 
     def previous_page(self, page):
-        if page.has_previous() and page.number > 2:
+        if page.has_previous():
             return self._page_urls(page.previous_page_number())
         return None
 
     def next_page(self, page):
-        last_page = page.paginator.num_pages
-        if page.has_next() and page.number < last_page - 1:
+        if page.has_next():
             return self._page_urls(page.next_page_number())
         return None
 
@@ -93,3 +93,4 @@ class PageLinksMixin:
                             'last_page_url': self.last_page(page),
                             })
         return context
+
