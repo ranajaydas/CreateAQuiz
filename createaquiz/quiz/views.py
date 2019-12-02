@@ -75,7 +75,7 @@ class QuizListView(PageLinksMixin, ListView):
                     | Q(tags__slug__icontains=search_term)
                 ).distinct()
         # Optimization to reduce number of database calls
-        return query_set.select_related('author').prefetch_related('tags')
+        return query_set.select_related('author__profile').prefetch_related('tags')
 
 
 class QuizDetailView(DetailView):
@@ -84,7 +84,7 @@ class QuizDetailView(DetailView):
     # Optimization to reduce number of database calls
     queryset = (
         Quiz.objects
-        .select_related('author')
+        .select_related('author__profile')
         .prefetch_related('tags')
         .prefetch_related('question_set')
     )
