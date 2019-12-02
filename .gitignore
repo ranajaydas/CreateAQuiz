@@ -4,3 +4,4 @@ venv/
 *__pycache__*
 *.pdf
 *.xlsx
+db.sqlite3
