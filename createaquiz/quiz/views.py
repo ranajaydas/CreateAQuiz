@@ -92,11 +92,11 @@ class QuizDetailView(DetailView):
 
 def quiz_start_view(request, slug):
     quiz = get_object_or_404(Quiz, slug__iexact=slug)
+    questions = quiz.question_set.all()
     quiz_score = 0
     quiz_total_questions = quiz.question_set.count()
     form_posted = False     # Checks if the form has been posted by the user
     user_answer_dict = {}
-    questions = quiz.question_set.all()
     quiz_score_percent = 0
 
     if request.method == 'POST':
