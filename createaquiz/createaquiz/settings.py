@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',  # Added for creating sitemaps
 
     # TODO: Add user and installed apps here
     'debug_toolbar',

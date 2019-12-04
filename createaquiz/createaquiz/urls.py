@@ -18,6 +18,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 from django.views.generic import RedirectView
+from django.contrib.sitemaps.views import (index as site_index_view, sitemap as sitemap_view)
+from .sitemaps import sitemaps_dict
 
 
 urlpatterns = [
@@ -25,6 +27,11 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/quiz/')),
     path('quiz/', include('quiz.urls')),
     path('user/', include('user.urls')),
+
+    # Sitemaps
+    path('sitemap.xml', site_index_view, {'sitemaps': sitemaps_dict}, name='sitemap'),
+    path('sitemap-<section>.xml', sitemap_view, {'sitemaps': sitemaps_dict},
+         name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 # modified from https://docs.djangoproject.com/en/2.2/howto/static-files/#serving-static-files-during-development
