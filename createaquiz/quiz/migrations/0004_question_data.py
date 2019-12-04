@@ -6,7 +6,6 @@ from django.db import migrations
 
 QUESTIONS = [
     {
-        'pk': 1,
         'question_text': 'Who is the leader of the Powerpuff Girls?',
         'correct_choice': 'Blossom',
         'incorrect_choice_1': 'Buttercup',
@@ -15,7 +14,6 @@ QUESTIONS = [
         'quiz_slug': 'know-your-powerpuff-girls',
     },
     {
-        'pk': 2,
         'question_text': 'What colour outfit does Buttercup wear?',
         'correct_choice': 'Green',
         'incorrect_choice_1': 'Pink',
@@ -24,7 +22,6 @@ QUESTIONS = [
         'quiz_slug': 'know-your-powerpuff-girls',
     },
     {
-        'pk': 3,
         'question_text': "What is the colour of Bubble's eyes?",
         'correct_choice': 'Blue',
         'incorrect_choice_1': 'Pink',
@@ -33,7 +30,6 @@ QUESTIONS = [
         'quiz_slug': 'know-your-powerpuff-girls',
     },
     {
-        'pk': 4,
         'question_text': "Who created the Powerpuff Girls?",
         'correct_choice': 'Professor Utonium',
         'incorrect_choice_1': 'Professor X',
@@ -42,7 +38,6 @@ QUESTIONS = [
         'quiz_slug': 'know-your-powerpuff-girls',
     },
     {
-        'pk': 5,
         'question_text': "Who is the youngest Powerpuff Girl?",
         'correct_choice': 'Bubbles',
         'incorrect_choice_1': 'Blossom',
@@ -51,7 +46,6 @@ QUESTIONS = [
         'quiz_slug': 'know-your-powerpuff-girls',
     },
     {
-        'pk': 6,
         'question_text': "Which of these is NOT a Teenage Mutant Ninja Turtle?",
         'correct_choice': 'Caravaggio',
         'incorrect_choice_1': 'Leonardo',
@@ -60,7 +54,6 @@ QUESTIONS = [
         'quiz_slug': 'tmnt-quiz',
     },
     {
-        'pk': 7,
         'question_text': "What is Michelangelo's favourite food?",
         'correct_choice': 'Pizza',
         'incorrect_choice_1': 'Burgers',
@@ -69,7 +62,6 @@ QUESTIONS = [
         'quiz_slug': 'tmnt-quiz',
     },
     {
-        'pk': 8,
         'question_text': "Who is the most handsome enemy of the Teenage Mutant Ninja Turtles?",
         'correct_choice': 'The Shredder',
         'incorrect_choice_1': 'Krang (really?)',
@@ -78,43 +70,6 @@ QUESTIONS = [
         'quiz_slug': 'tmnt-quiz',
     },
     {
-        'pk': 9,
-        'question_text': "What is the capital of Japan?",
-        'correct_choice': 'Tokyo',
-        'incorrect_choice_1': 'Kyoto',
-        'incorrect_choice_2': 'Osaka',
-        'incorrect_choice_3': 'Hiroshima',
-        'quiz_slug': 'capitals-of-asia',
-    },
-    {
-        'pk': 10,
-        'question_text': "What is the capital of India?",
-        'correct_choice': 'New Delhi',
-        'incorrect_choice_1': 'Calcutta',
-        'incorrect_choice_2': 'Mumbai',
-        'incorrect_choice_3': 'Bangalore',
-        'quiz_slug': 'capitals-of-asia',
-    },
-    {
-        'pk': 11,
-        'question_text': "What is the capital of Georgia?",
-        'correct_choice': 'Tblisi',
-        'incorrect_choice_1': 'Nur-Sultan',
-        'incorrect_choice_2': 'Bendar Seri Begawan',
-        'incorrect_choice_3': 'This is a trick question! Georgia is in Europe!',
-        'quiz_slug': 'capitals-of-asia',
-    },
-    {
-        'pk': 12,
-        'question_text': "Baku is the capital of which country?",
-        'correct_choice': 'Azerbaijan',
-        'incorrect_choice_1': 'Turkey',
-        'incorrect_choice_2': 'Armenia',
-        'incorrect_choice_3': 'Turkmenistan',
-        'quiz_slug': 'capitals-of-asia',
-    },
-    {
-        'pk': 13,
         'question_text': "What colour mask does Donatello wear?",
         'correct_choice': 'Purple',
         'incorrect_choice_1': 'Red',
@@ -123,7 +78,38 @@ QUESTIONS = [
         'quiz_slug': 'tmnt-quiz',
     },
     {
-        'pk': 14,
+        'question_text': "What is the capital of Japan?",
+        'correct_choice': 'Tokyo',
+        'incorrect_choice_1': 'Kyoto',
+        'incorrect_choice_2': 'Osaka',
+        'incorrect_choice_3': 'Hiroshima',
+        'quiz_slug': 'capitals-of-asia',
+    },
+    {
+        'question_text': "What is the capital of India?",
+        'correct_choice': 'New Delhi',
+        'incorrect_choice_1': 'Calcutta',
+        'incorrect_choice_2': 'Mumbai',
+        'incorrect_choice_3': 'Bangalore',
+        'quiz_slug': 'capitals-of-asia',
+    },
+    {
+        'question_text': "What is the capital of Georgia?",
+        'correct_choice': 'Tblisi',
+        'incorrect_choice_1': 'Nur-Sultan',
+        'incorrect_choice_2': 'Bendar Seri Begawan',
+        'incorrect_choice_3': 'This is a trick question! Georgia is in Europe!',
+        'quiz_slug': 'capitals-of-asia',
+    },
+    {
+        'question_text': "Baku is the capital of which country?",
+        'correct_choice': 'Azerbaijan',
+        'incorrect_choice_1': 'Turkey',
+        'incorrect_choice_2': 'Armenia',
+        'incorrect_choice_3': 'Turkmenistan',
+        'quiz_slug': 'capitals-of-asia',
+    },
+    {
         'question_text': "Which is the highest peak in the world?",
         'correct_choice': 'Mount Everest',
         'incorrect_choice_1': 'Mount K2',
@@ -132,7 +118,6 @@ QUESTIONS = [
         'quiz_slug': 'mountains-of-the-world',
     },
     {
-        'pk': 15,
         'question_text': "Which is the longest mountain range in the world?",
         'correct_choice': 'Andes',
         'incorrect_choice_1': 'Himalayas',
@@ -141,7 +126,6 @@ QUESTIONS = [
         'quiz_slug': 'mountains-of-the-world',
     },
     {
-        'pk': 16,
         'question_text': "Where did sushi originate?",
         'correct_choice': 'Southeast Asia',
         'incorrect_choice_1': 'Japan',
@@ -150,7 +134,6 @@ QUESTIONS = [
         'quiz_slug': 'food-from-around-the-world',
     },
     {
-        'pk': 17,
         'question_text': "What is the national dish of Bulgaria?",
         'correct_choice': 'Shopska Salad',
         'incorrect_choice_1': 'Lyutenitsa',
@@ -159,7 +142,6 @@ QUESTIONS = [
         'quiz_slug': 'food-from-around-the-world',
     },
     {
-        'pk': 18,
         'question_text': "What is Pecorino cheese most commonly made from?",
         'correct_choice': 'Sheep milk',
         'incorrect_choice_1': 'Cow milk',
@@ -168,7 +150,6 @@ QUESTIONS = [
         'quiz_slug': 'food-from-around-the-world',
     },
     {
-        'pk': 19,
         'question_text': "When is Half-Life 3 coming out?",
         'correct_choice': 'Never',
         'incorrect_choice_1': 'Never',
@@ -177,7 +158,6 @@ QUESTIONS = [
         'quiz_slug': 'video-games',
     },
     {
-        'pk': 26,
         'question_text': "What is the name of Mario's brother?",
         'correct_choice': 'Luigi',
         'incorrect_choice_1': 'Green Mario',
@@ -186,52 +166,6 @@ QUESTIONS = [
         'quiz_slug': 'video-games',
     },
     {
-        'pk': 20,
-        'question_text': "What is the french word for omlette with cheese?",
-        'correct_choice': 'Omelette du fromage',
-        'incorrect_choice_1': 'Croissant',
-        'incorrect_choice_2': 'Je ma pelle le Toots McPoot',
-        'incorrect_choice_3': 'Buffet',
-        'quiz_slug': 'omelette-du-fromage',
-    },
-    {
-        'pk': 21,
-        'question_text': "What is the most delicious breakfast in the world?",
-        'correct_choice': 'Omelette du fromage',
-        'incorrect_choice_1': 'Old shoes',
-        'incorrect_choice_2': 'Porridge',
-        'incorrect_choice_3': 'Nasi Lemak',
-        'quiz_slug': 'omelette-du-fromage',
-    },
-    {
-        'pk': 22,
-        'question_text': "What is the capital of North Korea?",
-        'correct_choice': 'Omelette du fromage',
-        'incorrect_choice_1': 'Pyongyang',
-        'incorrect_choice_2': 'Seoul',
-        'incorrect_choice_3': 'Tokyo',
-        'quiz_slug': 'omelette-du-fromage',
-    },
-    {
-        'pk': 23,
-        'question_text': "Who is the president of the US in 2019?",
-        'correct_choice': 'Omelette du fromage',
-        'incorrect_choice_1': 'Dubyaman',
-        'incorrect_choice_2': 'Arnold Schwarzenegger',
-        'incorrect_choice_3': 'Giant wig wearing baby',
-        'quiz_slug': 'omelette-du-fromage',
-    },
-    {
-        'pk': 24,
-        'question_text': "When is Half-Life 3 coming out?",
-        'correct_choice': 'Omelette du fromage',
-        'incorrect_choice_1': '2022',
-        'incorrect_choice_2': '2122',
-        'incorrect_choice_3': '2222',
-        'quiz_slug': 'omelette-du-fromage',
-    },
-    {
-        'pk': 25,
         'question_text': "Which was the first video game ever made?",
         'correct_choice': 'Pong',
         'incorrect_choice_1': 'Pacman',
@@ -240,7 +174,6 @@ QUESTIONS = [
         'quiz_slug': 'video-games',
     },
     {
-        'pk': 27,
         'question_text': "Which was Studio CD Projekt Red's first game?",
         'correct_choice': 'The Witcher',
         'incorrect_choice_1': 'Cyberpunk 2077',
@@ -249,7 +182,46 @@ QUESTIONS = [
         'quiz_slug': 'video-games',
     },
     {
-        'pk': 28,
+        'question_text': "What is the french word for omlette with cheese?",
+        'correct_choice': 'Omelette du fromage',
+        'incorrect_choice_1': 'Croissant',
+        'incorrect_choice_2': 'Je ma pelle le Toots McPoot',
+        'incorrect_choice_3': 'Buffet',
+        'quiz_slug': 'omelette-du-fromage',
+    },
+    {
+        'question_text': "What is the most delicious breakfast in the world?",
+        'correct_choice': 'Omelette du fromage',
+        'incorrect_choice_1': 'Old shoes',
+        'incorrect_choice_2': 'Porridge',
+        'incorrect_choice_3': 'Nasi Lemak',
+        'quiz_slug': 'omelette-du-fromage',
+    },
+    {
+        'question_text': "What is the capital of North Korea?",
+        'correct_choice': 'Omelette du fromage',
+        'incorrect_choice_1': 'Pyongyang',
+        'incorrect_choice_2': 'Seoul',
+        'incorrect_choice_3': 'Tokyo',
+        'quiz_slug': 'omelette-du-fromage',
+    },
+    {
+        'question_text': "Who is the president of the US in 2019?",
+        'correct_choice': 'Omelette du fromage',
+        'incorrect_choice_1': 'Dubyaman',
+        'incorrect_choice_2': 'Arnold Schwarzenegger',
+        'incorrect_choice_3': 'Giant wig wearing baby',
+        'quiz_slug': 'omelette-du-fromage',
+    },
+    {
+        'question_text': "When is Half-Life 3 coming out?",
+        'correct_choice': 'Omelette du fromage',
+        'incorrect_choice_1': '2022',
+        'incorrect_choice_2': '2122',
+        'incorrect_choice_3': '2222',
+        'quiz_slug': 'omelette-du-fromage',
+    },
+    {
         'question_text': "Is Donald Trump an idiot?",
         'correct_choice': 'Do you even need to ask? Yes!',
         'incorrect_choice_1': 'No',
@@ -258,7 +230,6 @@ QUESTIONS = [
         'quiz_slug': 'donald-is-an-idiot',
     },
     {
-        'pk': 29,
         'question_text': "What is Thor's full name?",
         'correct_choice': 'Thor Odinson',
         'incorrect_choice_1': 'Thor Colson',
@@ -267,7 +238,6 @@ QUESTIONS = [
         'quiz_slug': 'the-avengers-quiz',
     },
     {
-        'pk': 30,
         'question_text': "Who is Steve Rogers better known as?",
         'correct_choice': 'Captain America',
         'incorrect_choice_1': 'Ironman',
@@ -276,7 +246,6 @@ QUESTIONS = [
         'quiz_slug': 'the-avengers-quiz',
     },
     {
-        'pk': 31,
         'question_text': "Who was Ant Man after Hank Pym?",
         'correct_choice': 'Scott Lang',
         'incorrect_choice_1': 'Pepper Pym',
@@ -285,7 +254,6 @@ QUESTIONS = [
         'quiz_slug': 'the-avengers-quiz',
     },
     {
-        'pk': 32,
         'question_text': "Who is Star Lord's father?",
         'correct_choice': 'Ego',
         'incorrect_choice_1': 'Xenu',
@@ -294,7 +262,6 @@ QUESTIONS = [
         'quiz_slug': 'the-avengers-quiz',
     },
     {
-        'pk': 34,
         'question_text': "Who was the first actor to play the Incredible Hulk?",
         'correct_choice': 'Lou Ferrigno',
         'incorrect_choice_1': 'Edward Norton',
@@ -303,7 +270,6 @@ QUESTIONS = [
         'quiz_slug': 'the-avengers-quiz',
     },
     {
-        'pk': 35,
         'question_text': "What is the name of Thor's hammer?",
         'correct_choice': 'Mjolnir',
         'incorrect_choice_1': 'Megingjord',
@@ -312,7 +278,6 @@ QUESTIONS = [
         'quiz_slug': 'the-avengers-quiz',
     },
     {
-        'pk': 36,
         'question_text': "Who wrote the book- The Catcher in the Rye?",
         'correct_choice': 'J.D. Salinger',
         'incorrect_choice_1': 'James Joyce',
@@ -321,7 +286,6 @@ QUESTIONS = [
         'quiz_slug': 'the-book-lovers-quiz',
     },
     {
-        'pk': 37,
         'question_text': "The movie, Apocalypse Now, is based on which book?",
         'correct_choice': 'Heart of Darkness',
         'incorrect_choice_1': '1984',
@@ -330,7 +294,6 @@ QUESTIONS = [
         'quiz_slug': 'the-book-lovers-quiz',
     },
     {
-        'pk': 38,
         'question_text': "Which of these was NOT written by James Joyce?",
         'correct_choice': 'The Picture of Dorian Gray',
         'incorrect_choice_1': 'Ulysses',
@@ -339,7 +302,6 @@ QUESTIONS = [
         'quiz_slug': 'the-book-lovers-quiz',
     },
     {
-        'pk': 39,
         'question_text': "Which is the only book written by Emily Brontë?",
         'correct_choice': 'Wuthering Heights',
         'incorrect_choice_1': 'Pride and Prejudice',
@@ -348,7 +310,6 @@ QUESTIONS = [
         'quiz_slug': 'the-book-lovers-quiz',
     },
     {
-        'pk': 40,
         'question_text': "Which of these books is considered to be one of the first written novels in the world?",
         'correct_choice': 'The Tale of Genji by Murasaki Shikibu',
         'incorrect_choice_1': 'The Gutenberg Bible',
@@ -357,7 +318,6 @@ QUESTIONS = [
         'quiz_slug': 'the-book-lovers-quiz',
     },
     {
-        'pk': 41,
         'question_text': "Which of these authors is still alive (as of 2019)?",
         'correct_choice': 'Margaret Atwood',
         'incorrect_choice_1': 'Gabriel García Márquez',
@@ -366,7 +326,6 @@ QUESTIONS = [
         'quiz_slug': 'the-book-lovers-quiz',
     },
     {
-        'pk': 42,
         'question_text': "Which of these famous authors had a Fatwa issued on their life and had to go into hiding?",
         'correct_choice': 'Salman Rushdie',
         'incorrect_choice_1': 'Arundhati Roy',
@@ -382,7 +341,6 @@ def add_question_data(apps, schema_editor):
     Quiz = apps.get_model('quiz', 'Quiz')
     for question_dict in QUESTIONS:
         question = Question.objects.create(
-            pk=question_dict['pk'],
             question_text=question_dict['question_text'],
             correct_choice=question_dict['correct_choice'],
             incorrect_choice_1=question_dict['incorrect_choice_1'],
@@ -396,7 +354,8 @@ def add_question_data(apps, schema_editor):
 def remove_question_data(apps, schema_editor):
     Question = apps.get_model('quiz', 'Question')
     for question_dict in QUESTIONS:
-        question = Question.objects.get(pk=question_dict['pk'])
+        question = Question.objects.get(question_text=question_dict['question_text'],
+                                        quiz__slug=question_dict['quiz_slug'])
         question.delete()
 
 

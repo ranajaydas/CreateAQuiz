@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'quiz',
     'user',
     'core',
-
 ]
 
 MIDDLEWARE = [
@@ -88,16 +87,16 @@ WSGI_APPLICATION = 'createaquiz.wsgi.application'
 DATABASES = {
     'default': {
         # Uncomment to use SQLite3 database
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
         # PostgreSQL database
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'createaquiz',
-        # 'USER': 'postgres',
-        # 'PASSWORD': os.environ.get('POSTGRESQL_PASS'),
-        # 'HOST': '127.0.0.1',
-        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'createaquiz',
+        'USER': 'postgres',
+        'PASSWORD': os.environ.get('POSTGRESQL_PASS'),
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
