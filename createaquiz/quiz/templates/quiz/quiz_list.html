@@ -11,10 +11,16 @@
                         <h1>Welcome to Create A Quiz!</h1>
                         <p>A site for you to create and enjoy user-created quizzes</p>
                     </header>
-                    <p>Check out our latest awesome quizzes below. If you'd like to create your own quiz and share it with your friends, just <a href="{% url 'register' %}">sign up</a> for a free account and get started. Creating and solving quizzes has never been so easy!</p>
+                    <p>Check out our latest awesome quizzes below. If you'd like to create your own quiz and share it with your friends,
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'quiz_create' %}">get started right away!</a>
+                        {% else %}
+                            just <a href="{% url 'register' %}">sign up</a> for a free account and get started.
+                            {% endif %}
+                        Creating and solving quizzes has never been so easy!</p>
                 </div>
                 <span class="image object">
-                    <img src="{% static 'images/woman-phone-1.jpg' %}" alt="Woman playing CreateAQuiz on her phone" />
+                    <a href="#latest"><img src="{% static 'images/woman-phone-1.jpg' %}" alt="Woman playing CreateAQuiz on her phone" /></a>
                 </span>
             </section>
     {% endif %}
