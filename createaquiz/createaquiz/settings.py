@@ -87,10 +87,10 @@ TEMPLATES = [
 
             # Added for caching
             'loaders': [
-                ('django.template.loaders.cached.Loader', [
+                # ('django.template.loaders.cached.Loader', [
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
-                ]),
+                # ]),
             ],
         },
     },
@@ -193,9 +193,7 @@ INTERNAL_IPS = [
 # Added for caching
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-        'TIMEOUT': 600,  # seconds == 10 minutes
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
 CACHE_MIDDLEWARE_ALIAS = 'default'
