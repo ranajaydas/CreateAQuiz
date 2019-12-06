@@ -93,30 +93,33 @@ class QuizDetailView(DetailView):
 def quiz_start_view(request, slug):
     quiz = get_object_or_404(Quiz, slug__iexact=slug)
     questions = quiz.question_set.all().order_by('?')
-    quiz_score = 0
-    quiz_total_questions = quiz.question_set.count()
     form_posted = False     # Checks if the form has been posted by the user
-    user_answer_dict = {}
-    quiz_score_percent = 0
+    context = {
+        'form_posted': form_posted,
+        'questions': questions,
+        'object': quiz,
+    }
 
     if request.method == 'POST':
+        quiz_score = 0
+        quiz_total_questions = quiz.question_set.count()
+        user_answer_dict = {}
         form_posted = True
+
         for question in questions:
             user_answer = request.POST.get(question.question_text)
             user_answer_dict[question.question_text] = user_answer
             if user_answer == question.correct_choice:
                 quiz_score += 1
-        quiz_score_percent = int(quiz_score/quiz_total_questions*100)
 
-    context = {
-        'form_posted': form_posted,
-        'questions': questions,
-        'object': quiz,
-        'quiz_score': quiz_score,
-        'quiz_score_percent': quiz_score_percent,
-        'quiz_total_questions': quiz_total_questions,
-        'user_answer_dict': user_answer_dict,
-    }
+        quiz_score_percent = int(quiz_score/quiz_total_questions*100)
+        context.update({
+            'form_posted': form_posted,
+            'quiz_score': quiz_score,
+            'quiz_score_percent': quiz_score_percent,
+            'quiz_total_questions': quiz_total_questions,
+            'user_answer_dict': user_answer_dict,
+        })
     return render(request, 'quiz/quiz_start_form.html', context)
 
 
