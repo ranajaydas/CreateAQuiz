@@ -20,6 +20,9 @@
             padding: 5px;
             border-radius: 5px;
         }
+        .mb {
+            margin-bottom: 3px;
+        }
     </style>
 
     <section>
@@ -29,9 +32,9 @@
         {% if form_posted %}
             <div>
                 <h2 class="red-text">You scored {{ quiz_score_percent }}% ({{ quiz_score }} out of {{ quiz_total_questions }}) !</h2>
-                <a href="{{ quiz_start }}" class="button primary">Try Again?</a>
-                <a href="{% url 'quiz_list' %}#latest" class="button">Try Our Other Quizzes!</a>
-                <a href="https://www.facebook.com/sharer.php?u={{ request.get_host }}{{ object.get_absolute_url }}" class="button" target="_blank" rel="nofollow">Share</a>
+                <a href="{{ quiz_start }}" class="button primary mb">Try Again?</a>
+                <a href="{% url 'quiz_list' %}#latest" class="button mb">Try Our Other Quizzes!</a>
+                <a href="https://www.facebook.com/sharer.php?u={{ request.get_host }}{{ object.get_absolute_url }}" class="button mb" target="_blank" rel="nofollow">Share</a>
             </div>
         {% endif %}
         <form action="{{ quiz_start }}" method="post">
