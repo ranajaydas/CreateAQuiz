@@ -31,7 +31,7 @@
                 <h2 class="red-text">You scored {{ quiz_score_percent }}% ({{ quiz_score }} out of {{ quiz_total_questions }}) !</h2>
                 <a href="{{ quiz_start }}" class="button primary">Try Again?</a>
                 <a href="{% url 'quiz_list' %}#latest" class="button">Try Our Other Quizzes!</a>
-                <a href="https://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}{{ object.get_absolute_url }}" class="button" target="_blank" rel="nofollow">Share</a>
+                <a href="https://www.facebook.com/sharer.php?u={{ request.get_host }}{{ object.get_absolute_url }}" class="button" target="_blank" rel="nofollow">Share</a>
             </div>
         {% endif %}
         <form action="{{ quiz_start }}" method="post">
