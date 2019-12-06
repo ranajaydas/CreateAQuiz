@@ -2,6 +2,7 @@ boto3==1.10.32
 botocore==1.13.32
 Django==2.2.8
 django-crispy-forms==1.8.1
+django-debug-toolbar==2.1
 django-heroku==0.3.1
 django-storages==1.8
 docutils==0.15.2
@@ -15,3 +16,4 @@ s3transfer==0.2.1
 six==1.13.0
 sqlparse==0.3.0
 urllib3==1.25.7
+whitenoise==4.1.4
