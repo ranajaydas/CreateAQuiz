@@ -3,7 +3,7 @@
 
 {% block sub_content %}
 
-    {% if 'q' not in request.GET and 'page' not in request.GET  %}
+    {% if 'q' not in request.GET and 'page' not in request.GET and 'user' not in request.GET %}
         <!-- Banner -->
             <section id="banner">
                 <div class="content">
@@ -31,6 +31,8 @@
                 <h2><a href="{% url 'quiz_list' %}" id="latest">Latest Quizzes</a></h2>
                 {% if 'q' in request.GET %}
                     <h3>Search results for '{{ request.GET.q }}' :</h3>
+                {% elif 'user' in request.GET %}
+                    <h3>Quizzes by user '{{ request.GET.user }}' :</h3>
                 {% endif %}
             </header>
             <div class="posts">

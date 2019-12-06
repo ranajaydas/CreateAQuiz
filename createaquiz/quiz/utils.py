@@ -53,11 +53,15 @@ class PageLinksMixin:
     """Mixin for Pagination and Search results."""
     page_kwarg = 'page'
     search_kwarg = 'q'
+    user_kwarg = 'user'
 
     def _page_urls(self, page_number):
         if self.search_kwarg in self.request.GET:
             search_term = self.request.GET[self.search_kwarg]
             return "?{}={}&{}={}".format(self.search_kwarg, search_term, self.page_kwarg, page_number)
+        elif self.user_kwarg in self.request.GET:
+            user = self.request.GET[self.user_kwarg]
+            return "?{}={}&{}={}".format(self.user_kwarg, user, self.page_kwarg, page_number)
         else:
             return "?{}={}".format(self.page_kwarg, page_number)
 

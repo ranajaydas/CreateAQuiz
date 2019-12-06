@@ -60,20 +60,27 @@ class QuizListView(PageLinksMixin, ListView):
     model = Quiz
     paginate_by = 6
     ordering = ['-pub_date', '-id']             # Orders the posts by newest to oldest by pub-date and id
-    search_kwarg = 'q'
 
     def get_queryset(self):
         """Override of get_queryset to add search functionality."""
         query_set = super().get_queryset()
+
         if self.search_kwarg in self.request.GET:
             search_term = self.request.GET[self.search_kwarg]
             if search_term:
                 query_set = Quiz.objects.filter(
-                    Q(name__contains=search_term)
+                    Q(name__icontains=search_term)
                     | Q(description__icontains=search_term)
                     | Q(slug__icontains=search_term)
                     | Q(tags__slug__icontains=search_term)
                 ).distinct()
+
+        # search_kwarg will take precedence over user_kwarg
+        elif self.user_kwarg in self.request.GET:
+            user = self.request.GET[self.user_kwarg]
+            if user:
+                query_set = Quiz.objects.filter(author__username=user)
+
         # Optimization to reduce number of database calls
         return query_set.select_related('author__profile').prefetch_related('tags')
 
