@@ -25,3 +25,9 @@ Alternatively, play some of the existing user created quizzes.
     <li>Users can reset their passwords via email.</li>
     <li>Users can update and delete their own quizzes.</li>
 </ol>
+
+## To Do List:
+<ol>
+    <li>Add tests to the site.</li>
+    <li>Update to Django 3.x</li>
+</ol>
