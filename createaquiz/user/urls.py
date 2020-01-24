@@ -1,15 +1,16 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
-from .views import register, ProfileUpdate, PublicProfileDetail
+from user import views as user_views
 
 urlpatterns = [
     path('', RedirectView.as_view(pattern_name='login', permanent=False)),
     path('login/', auth_views.LoginView.as_view(template_name='user/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='user/logout.html'), name='logout'),
-    path('register/', register, name='register'),
-    path('profile/update/', ProfileUpdate.as_view(), name='profile_update'),
-    path('<slug>/', PublicProfileDetail.as_view(), name='public_profile'),
+
+    path('register/', user_views.register, name='register'),
+    path('profile/update/', user_views.ProfileUpdate.as_view(), name='profile_update'),
+    path('<slug>/', user_views.PublicProfileDetail.as_view(), name='public_profile'),
 
     path('password/change/',
          auth_views.PasswordChangeView.as_view(template_name='user/password_change_form.html'),
