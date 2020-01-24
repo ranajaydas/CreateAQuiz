@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',  # Added for creating sitemaps
 
-    # TODO: Add user and installed apps here
     'debug_toolbar',
     'crispy_forms',
     'storages',
@@ -67,7 +66,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-ROOT_URLCONF = 'createaquiz.urls'    # TODO: Update this based on project name
+ROOT_URLCONF = 'createaquiz.urls'
 
 TEMPLATES = [
     {
@@ -160,7 +159,7 @@ MEDIA_URL = '/media/'
 
 # Login and Logout
 SITE_ID = 1
-LOGIN_REDIRECT_URL = 'quiz_list'    # TODO: Update this based on actual home page
+LOGIN_REDIRECT_URL = 'quiz_list'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
