@@ -28,6 +28,7 @@ Alternatively, play some of the existing user created quizzes.
 
 ## To Do List:
 <ol>
+    <li>Add MIT license to site.</li>
     <li>Add tests to the site.</li>
     <li>Update to Django 3.x</li>
 </ol>
