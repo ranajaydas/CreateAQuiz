@@ -187,7 +187,7 @@ class QuestionDeleteView(DeleteMixin, LoginRequiredMixin, UserIsAuthorMixin, Suc
         return reverse_lazy('quiz_detail', kwargs={'slug': slug})
 
 
-def plotly(request):
+def plotly_view(request):
     """Render the following pie charts and stats:
     1. Pie chart of all the quiz tags and their item count.
     2. Bar graph of questions in each quiz.
