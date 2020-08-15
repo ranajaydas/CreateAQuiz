@@ -245,6 +245,7 @@ def plotly(request):
         hovertemplate='<b>No. of Quizzes</b>: %{y}<extra></extra>',
         showlegend=False,
     )])
+    bar2_fig.update_xaxes(title_text='Users')
     bar2_fig.update_yaxes(title_text='No. of Quizzes')
     bar2_fig_html = bar2_fig.to_html(full_html=False, default_height=450, default_width=800)
 
