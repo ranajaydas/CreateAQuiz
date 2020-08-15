@@ -1,0 +1,35 @@
+{% extends parent_template|default:'quiz/base_quiz.html' %}
+
+{% block title %}
+    {{ block.super }} - {{ object.name }}
+{% endblock title %}
+
+{% block sub_content %}
+
+    <section>
+        <header class="major">
+            <h2>
+                <a class="icon solid fa-tags" href="{% url 'tag_list' %}">Plots and Charts</a>
+            </h2>
+        </header>
+       <div class="media-body">
+            <article>
+                <h3>Quizzes per tag</h3>
+                {% autoescape off %}
+                {{ pie_fig_html }}
+                {% endautoescape %}
+
+                <h3>Questions per quiz</h3>
+                {% autoescape off %}
+                {{ bar1_fig_html }}
+                {% endautoescape %}
+
+                <h3>Quizzes per user</h3>
+                {% autoescape off %}
+                {{ bar2_fig_html }}
+                {% endautoescape %}
+            </article>
+        </div>
+    </section>
+
+{% endblock sub_content %}

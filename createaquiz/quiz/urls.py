@@ -2,6 +2,9 @@ from django.urls import path
 from quiz import views
 
 urlpatterns = [
+    # Plotly charts
+    path('plotly/', views.plotly, name='quiz_plotly'),
+
     # Tag URLs
     path('tag/', views.TagListView.as_view(), name='tag_list'),
     path('tag/create/', views.TagCreateView.as_view(), name='tag_create'),

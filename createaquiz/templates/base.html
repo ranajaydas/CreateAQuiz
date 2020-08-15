@@ -23,6 +23,9 @@
 			<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
 			<link rel="SHORTCUT ICON" href="{% static 'images/favicon.ico' %}">
 
+		<!-- Plotly CDN -->
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 		{% block head %}{% endblock %}
 
 	</head>
@@ -82,6 +85,7 @@
 									<ul>
 										<li><a href="{% url 'quiz_list' %}">Quizzes</a></li>
 										<li><a href="{% url 'tag_list' %}">Tags</a></li>
+										<li><a href="{% url 'quiz_plotly' %}">Plots</a></li>
 										{% if user.is_authenticated %}
 											<li>
 												<span class="opener">Create</span>
@@ -111,7 +115,7 @@
 									<ul class="contact">
 										<li class="icon brands fa-python">Django 2.2.8</a></li>
 										<li class="icon solid fa-database">PostgreSQL</a></li>
-										<li class="icon brands fa-html5"><a href="http://html5up.net">Free theme from HTML5 UP with customizations</a></li>
+										<li class="icon brands fa-html5">HTML + CSS</li>
 									</ul>
 								</section>
 
